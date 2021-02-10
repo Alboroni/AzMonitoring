@@ -25,6 +25,7 @@ steps:
     action: 'Create Or Update Resource Group'
     resourceGroupName: 'aazmonaks'
     location: 'UK South'
-    templateLocation: 'URL of the file'
+    templateLocation: 'Linked artifact'
+    csmFile: '$(System.DefaultWorkingDirectory)/templates/actiongrouptemplate.json'
     deploymentMode: 'Incremental'
     deploymentName: 'AzMon Deploy'
