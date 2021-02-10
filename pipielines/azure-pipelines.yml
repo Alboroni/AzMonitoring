@@ -27,5 +27,7 @@ steps:
     location: 'UK South'
     templateLocation: 'Linked artifact'
     csmFile: 'Templates/actiongrouptemplate.json'
+    csmParametersFile: 'ParameterFiles/ActionGrpParams.json'
     deploymentMode: 'Incremental'
     deploymentName: 'azmondeploy'
+
