@@ -30,4 +30,6 @@ steps:
     csmParametersFile: 'ParameterFiles/ActionGrpParams.json'
     deploymentMode: 'Incremental'
     deploymentName: 'azmondeploy'
+    deploymentOutputs: actiongrp_arm
 
+- pwsh: $(System.DefaultWorkingDirectory)/parse_arm_deployment_output.ps1 -ArmOutputString '$(actiongrp)' -MakeOutput -ErrorAction Stop
