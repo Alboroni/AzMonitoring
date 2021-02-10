@@ -26,6 +26,6 @@ steps:
     resourceGroupName: 'aazmonaks'
     location: 'UK South'
     templateLocation: 'Linked artifact'
-    csmFile: 'templates/actiongrouptemplate.json'
+    csmFile: 'Templates/actiongrouptemplate.json'
     deploymentMode: 'Incremental'
     deploymentName: 'AzMon Deploy'
