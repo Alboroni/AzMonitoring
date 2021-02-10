@@ -28,4 +28,4 @@ steps:
     templateLocation: 'Linked artifact'
     csmFile: 'Templates/actiongrouptemplate.json'
     deploymentMode: 'Incremental'
-    deploymentName: 'AzMon Deploy'
+    deploymentName: 'azmondeploy'
