@@ -23,13 +23,29 @@ steps:
     azureResourceManagerConnection: 'alexInternal'
     subscriptionId: 'db99463c-2a00-433c-a39b-f63083b719a4'
     action: 'Create Or Update Resource Group'
-    resourceGroupName: 'aazmonaks'
+    resourceGroupName: 'azmonitoring'
     location: 'UK South'
     templateLocation: 'Linked artifact'
     csmFile: 'Templates/actiongrouptemplate.json'
     csmParametersFile: 'ParameterFiles/ActionGrpParams.json'
     deploymentMode: 'Incremental'
-    deploymentName: 'azmondeploy'
+    deploymentName: 'actgrpdeploy'
     deploymentOutputs: actiongrp_arm
 
-- pwsh: $(System.DefaultWorkingDirectory)/parse_arm_deployment_output.ps1 -ArmOutputString '$(actiongrp)' -MakeOutput -ErrorAction Stop
+- pwsh: $(System.DefaultWorkingDirectory)/ParameterFiles/parse_arm_deployment_output.ps1 -ArmOutputString '$(actiongrp_arm)' -MakeOutput -ErrorAction Stop
+
+- task: AzureResourceManagerTemplateDeployment@3 
+  inputs:
+   deploymentScope: 'Resource Group'
+   azureResourceManagerConnection: 'alexInternal'
+   subscriptionId: 'db99463c-2a00-433c-a39b-f63083b719a4'
+   action: 'Create Or Update Resource Group'
+   resourceGroupName: 'azmonitoring'
+   templateLocation: 'Linked artifact'
+   csmFile: 'Templates/ResourceHealthTemplate.jsonn'
+   deploymentMode: 'Incremental'
+   overrideParameters: 
+
+
+
+  
