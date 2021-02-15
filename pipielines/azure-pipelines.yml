@@ -47,7 +47,6 @@ steps:
    deploymentMode: 'Incremental'
    deploymentName: 'RHMonDeploy'
    overrideParameters: -actionGroupResourceId $(actionGroupId) -activityLogAlertName 'Resource Health Critical Alerts'
-=======
    overrideParameters: '-actiongrpId'
 
 
