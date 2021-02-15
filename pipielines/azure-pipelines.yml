@@ -53,5 +53,5 @@ steps:
    csmFile: 'Templates/ResourceHealthTemplate.json'
    deploymentMode: 'Incremental'
    deploymentName: 'RHMonDeploy'
-   overrideParameters: -actionGroupResourceId $(actionGroupId) -activityLogAlertName 'Resource Health Critical Alerts'
+   overrideParameters: -actionGroupResourceId $(actiongrp_arm.actionGroupId.value) -activityLogAlertName 'Resource Health Critical Alerts'
 
