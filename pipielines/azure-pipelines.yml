@@ -32,7 +32,7 @@ steps:
     deploymentName: 'actgrpdeploy'
     deploymentOutputs: actiongrp_arm
 
-- pwsh: $(System.DefaultWorkingDirectory)/ParameterFiles/parse_arm_deployment_output.ps1 -ArmOutputString '$(actiongrp_arm)' -MakeOutput -ErrorAction Stop
+- pwsh: $(System.DefaultWorkingDirectory)/pipelines/parse_arm_deployment_output.ps1 -ArmOutputString '$(actiongrp_arm)' -MakeOutput -ErrorAction Stop
 
 - task: AzureResourceManagerTemplateDeployment@3 
   inputs:
