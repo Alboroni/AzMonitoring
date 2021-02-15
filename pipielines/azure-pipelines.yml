@@ -44,7 +44,7 @@ steps:
    templateLocation: 'Linked artifact'
    csmFile: 'Templates/ResourceHealthTemplate.jsonn'
    deploymentMode: 'Incremental'
-   overrideParameters: 
+   overrideParameters: '-actiongrpId'
 
 
 
