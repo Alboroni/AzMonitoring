@@ -7,7 +7,7 @@ trigger:
 - main
 
 pool:
-  vmImage: windows-latest
+  vmImage: ubuntu-latest
 
 steps:
 - script: echo Hello, world!
@@ -33,7 +33,13 @@ steps:
     deploymentOutputs: actiongrp_arm
 
 
-- pwsh: $(System.DefaultWorkingDirectory)\pipelines\parse_arm_deployment_output.ps1 -ArmOutputString '$(actiongrp_arm)' -MakeOutput -ErrorAction Stop
+- task: PowerShell@2
+  inputs:
+    filePath: '$(System.DefaultWorkingDirectory)/pipelines/parse_arm_deployment_output.ps1'
+    arguments: '-ArmOutputString ''$(actiongrp_arm)'' -MakeOutput'
+  
+
+
 
 - task: AzureResourceManagerTemplateDeployment@3 
   inputs:
@@ -49,6 +55,3 @@ steps:
    deploymentName: 'RHMonDeploy'
    overrideParameters: -actionGroupResourceId $(actionGroupId) -activityLogAlertName 'Resource Health Critical Alerts'
 
-
-
-  
