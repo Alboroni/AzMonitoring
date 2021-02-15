@@ -45,7 +45,6 @@ steps:
    templateLocation: 'Linked artifact'
    csmFile: 'Templates/ResourceHealthTemplate.jsonn'
    deploymentMode: 'Incremental'
-<<<<<<< HEAD
    deploymentName: 'RHMonDeploy'
    overrideParameters: -actionGroupResourceId $(actionGroupId) -activityLogAlertName 'Resource Health Critical Alerts'
 =======
