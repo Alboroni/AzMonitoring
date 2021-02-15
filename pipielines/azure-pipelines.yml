@@ -50,7 +50,6 @@ steps:
    overrideParameters: -actionGroupResourceId $(actionGroupId) -activityLogAlertName 'Resource Health Critical Alerts'
 =======
    overrideParameters: '-actiongrpId'
->>>>>>> c7032a868432388dad6c62f51af87dd2da87181f
 
 
 
