@@ -41,10 +41,12 @@ steps:
    subscriptionId: 'db99463c-2a00-433c-a39b-f63083b719a4'
    action: 'Create Or Update Resource Group'
    resourceGroupName: 'azmonitoring'
+   location: 'UK South'
    templateLocation: 'Linked artifact'
    csmFile: 'Templates/ResourceHealthTemplate.jsonn'
    deploymentMode: 'Incremental'
-   overrideParameters: 
+   deploymentName: 'RHMonDeploy'
+   overrideParameters: -actionGroupResourceId $(actionGroupId) -activityLogAlertName 'Resource Health Critical Alerts'
 
 
 
