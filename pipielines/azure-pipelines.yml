@@ -50,7 +50,7 @@ steps:
    resourceGroupName: 'azmonitoring'
    location: 'UK South'
    templateLocation: 'Linked artifact'
-   csmFile: 'Templates/ResourceHealthTemplate.jsonn'
+   csmFile: 'Templates/ResourceHealthTemplate.json'
    deploymentMode: 'Incremental'
    deploymentName: 'RHMonDeploy'
    overrideParameters: -actionGroupResourceId $(actionGroupId) -activityLogAlertName 'Resource Health Critical Alerts'
