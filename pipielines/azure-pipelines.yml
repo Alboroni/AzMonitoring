@@ -22,7 +22,7 @@ steps:
   inputs:
     deploymentScope: 'Resource Group'
     azureResourceManagerConnection: $(serviceconnection)
-    subscriptionId: 'db99463c-2a00-433c-a39b-f63083b719a4'
+    subscriptionId: $(subscriptionId)
     action: 'Create Or Update Resource Group'
     resourceGroupName: 'azmonitoring'
     location: 'UK South'
@@ -38,7 +38,7 @@ steps:
   inputs:
    deploymentScope: 'Resource Group'
    azureResourceManagerConnection: $(serviceconnection)
-   subscriptionId: 'db99463c-2a00-433c-a39b-f63083b719a4'
+   subscriptionId: $(subscriptionId)
    action: 'Create Or Update Resource Group'
    resourceGroupName: 'azmonitoring'
    location: 'UK South'
@@ -52,7 +52,7 @@ steps:
   inputs:
     deploymentScope: 'Resource Group'
     azureResourceManagerConnection: $(serviceconnection)
-    subscriptionId: 'db99463c-2a00-433c-a39b-f63083b719a4'
+    subscriptionId: $(subscriptionId)
     action: 'Create Or Update Resource Group'
     resourceGroupName: 'azmonitoring'
     location: 'UK South'
