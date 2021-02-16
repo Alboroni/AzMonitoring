@@ -24,15 +24,15 @@
         },
         "window_Size":{
             "defaultValue": "PT15M",
-        "type": "string"
+        "type": "int"
         },
         "Evaluation_Frequency":{
   "defaultValue": "PT5M",
-  "type": "string"
+  "type": "int"
 
         },
         "Threshold_Value":{
-            "defaultValue": "95",
+            "defaultValue": 95,
             "type": "int"
 
         },
