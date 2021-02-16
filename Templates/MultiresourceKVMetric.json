@@ -1,0 +1,87 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "metricAlerts_Key_Vault_description": {
+            "type": "securestring"
+        },
+        "metricAlerts_Key_Vault_Name": {
+            "defaultValue": "Key Vault Availability has been reduced",
+            "type": "string"
+        },
+        "TargetScope":{"defaultValue":   [
+            "/subscriptions/db99463c-2a00-433c-a39b-f63083b719a4"
+        ],
+            
+        "type": "array"},
+        "actiongroups_id": {
+                        "type": "string"
+        },
+        "Metric_Name":{
+            "defaultValue" :"Availability",
+            "type": "string"
+        },
+        "window_Size":{
+            "defaultValue": "PT15M",
+        "type": "string"
+        },
+        "Evaluation_Frequency":{
+  "defaultValue": "PT5M",
+  "type": "string"
+
+        },
+        "Threshold_Value":{
+            "defaultValue": "95",
+            "type": "int"
+
+        },
+        "Operator_value":{
+            "defaultValue": "LessThan",
+        "type": "string"}
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Insights/metricAlerts",
+            "apiVersion": "2018-03-01",
+            "name": "[parameters('metricAlerts_Key_Vault_Name')]",
+            "location": "global",
+            "properties": {
+                "severity": 2,
+                "enabled": true,
+                "scopes": "[parameters('TargetScope')]",
+                "evaluationFrequency":  "[parameters('Evaluation_Frequency')]",
+                "windowSize": "[parameters('window_Size')]",
+                "criteria": {
+                    "allOf": [
+                        {
+                            "threshold":  "[parameters('Threshold_Value')]",
+                            "name": "Metric1",
+                            "metricNamespace": "Microsoft.KeyVault/vaults",
+                            "metricName": "[parameters('Metric_Name')]",
+                            "location": "global",
+                            "dimensions": [],
+                            "operator": "[parameters('Operator_value')]",
+                            "timeAggregation": "Average",
+                            "criterionType": "StaticThresholdCriterion"
+                        }
+                    ],
+                    "odata.type": "Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria"
+                },
+                "autoMitigate": true,
+                "targetResourceType": "microsoft.keyvault/vaults",
+                "targetResourceRegion": "uksouth",
+                "actions": [
+                    {
+                        "actionGroupId": "[parameters('actiongroups_id')]",
+                        "webHookProperties": {}
+                    }
+                ],
+                "description": "[parameters('metricAlerts_Key_Vault_description')]"
+            }
+        }
+
+        
+
+    ]
+}

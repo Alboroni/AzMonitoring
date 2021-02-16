@@ -23,7 +23,7 @@
             "location": "Global",
             "properties": {
                 "enabled": true,
-                "description": "The resources health is not healthy please investigate further",
+                "description": "The resources health is not healthy please investigate furtherdfsd",
                 "scopes": [
                     "[subscription().id]"
                 ],
