@@ -48,17 +48,17 @@ steps:
    deploymentName: 'RHMonDeploy'
    overrideParameters: -actionGroupResourceId $(actiongrp_arm.actionGroupId.value) -activityLogAlertName 'Resource Health Critical Alerts'
 
-   - task: AzureResourceManagerTemplateDeployment@3 
+- task: AzureResourceManagerTemplateDeployment@3
   inputs:
-   deploymentScope: 'Resource Group'
-   azureResourceManagerConnection: 'alexInternal'
-   subscriptionId: 'db99463c-2a00-433c-a39b-f63083b719a4'
-   action: 'Create Or Update Resource Group'
-   resourceGroupName: 'azmonitoring'
-   location: 'UK South'
-   templateLocation: 'Linked artifact'
-   csmFile: 'Templates/MultiresourceKVMetric.json'
-   deploymentMode: 'Incremental'
-   deploymentName: 'RHMonDeploy'
-   overrideParameters: -actiongroups_id $(actiongrp_arm.actionGroupId.value) 
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'alexInternal'
+    subscriptionId: 'db99463c-2a00-433c-a39b-f63083b719a4'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'azmonitoring'
+    location: 'UK South'
+    templateLocation: 'Linked artifact'
+    csmFile: 'Templates/MultiresourceKVMetric.json'
+    overrideParameters: '-actiongroups_id $(actiongrp_arm.actionGroupId.value)'
+    deploymentName: "KVmetric"
+    deploymentMode: 'Incremental'
 
