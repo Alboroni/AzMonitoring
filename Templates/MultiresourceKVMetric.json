@@ -3,6 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "metricAlerts_Key_Vault_description": {
+            "defaultValue": "KV Metric Alert has passed its threshold",
             "type": "securestring"
         },
         "metricAlerts_Key_Vault_Name": {
