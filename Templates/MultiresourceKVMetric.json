@@ -6,7 +6,7 @@
             "type": "securestring"
         },
         "metricAlerts_Key_Vault_Name": {
-            "defaultValue": "Key Vault Availability has been reduced",
+            "defaultValue": "Key Vault Availability has been reduced(pipe)",
             "type": "string"
         },
         "TargetScope":{"defaultValue":   [
