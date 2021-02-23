@@ -1,5 +1,5 @@
 params (
-param ([Parameter(Mandatory)]$subscriptionId,[Parameter(Mandatory)] $resourcetype)
+ [Parameter(Mandatory)]$subscriptionId,[Parameter(Mandatory)] $resourcetype
 
 )
 
