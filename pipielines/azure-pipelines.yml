@@ -79,7 +79,7 @@ steps:
   
 - task: AzurePowerShell@5
   inputs:
-    azureSubscription: $(subscriptionId)
+    azureSubscription: $(serviceconnection)
     ScriptType: 'FilePath'
     ScriptPath: 'Scripts\GetResourcesfromType.ps1'
     ScriptArguments: '-subscriptionId $(subscriptionId) -ResourceType microsoft.network/loadbalancerspe '''
