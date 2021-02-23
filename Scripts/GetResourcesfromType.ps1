@@ -3,9 +3,13 @@ param (
 
 )
 
+Write-Host $resourcetype
+
 Select-AzSubscription -Subscription $subscriptionId
 
 $resourceIDs = (Get-AzResource -ResourceType $resourcetype).ResourceId
+
+
 
 
 Write-Output "##vso[task.setvariable variable='resourceIds';]$resourceIDs"
@@ -14,3 +18,4 @@ Write-Output "##vso[task.setvariable variable='resourceIds';]$resourceIDs"
     
 Write-Output "##vso[task.setvariable variable='resourceIds';isOutput=true]$resourceIDs"
 
+Write-Host $resourceIDs
