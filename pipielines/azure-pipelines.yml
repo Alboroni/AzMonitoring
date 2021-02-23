@@ -1,4 +1,5 @@
 # Starter pipeline
+
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
@@ -75,3 +76,11 @@ steps:
     csmParametersFile: 'ParameterFiles/KVSaturationMetric.json'
     overrideParameters: '-actiongroups_id $(actiongrp_arm.actionGroupId.value)'
     deploymentMode: 'Incremental'
+  
+  
+- task: AzurePowerShell@5
+  inputs:
+    azureSubscription: $(subscriptionId)
+    ScriptType: 'FilePath'
+    ScriptPath: 'Scripts\GetResourcesfromType.ps1'
+    ScriptArguments: '-subscriptionId $(subscriptionId) -ResourceType microsoft.network/loadbalancerspe '''
