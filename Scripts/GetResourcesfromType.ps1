@@ -1,11 +1,11 @@
-params (
+param (
  [Parameter(Mandatory)]$subscriptionId,[Parameter(Mandatory)] $resourcetype
 
 )
 
 Select-AzSubscription -Subscription $subscriptionId
 
-$resourceIDs = (Get-AzResource -ResourceType $resourcetype).Id
+$resourceIDs = (Get-AzResource -ResourceType $resourcetype).ResourceId
 
 
 Write-Output "##vso[task.setvariable variable=$resIds;]$resourceIDs"
