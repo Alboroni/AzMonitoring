@@ -75,3 +75,11 @@ steps:
     csmParametersFile: 'ParameterFiles/KVSaturationMetric.json'
     overrideParameters: '-actiongroups_id $(actiongrp_arm.actionGroupId.value)'
     deploymentMode: 'Incremental'
+  
+  
+- task: AzurePowerShell@5
+  inputs:
+    azureSubscription: $(serviceconnection)
+    ScriptType: 'FilePath'
+    ScriptPath: 'Scripts/GetResourcesfromType.ps1'
+    ScriptArguments: '-subscriptionId $(subscriptionId) -ResourceType microsoft.network/loadbalancerspe '''
