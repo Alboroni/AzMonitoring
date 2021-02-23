@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "metricAlerts_Key_Vault_description": {
-            "defaultValue": "KV Metric Alert has passed its threshold",
+            "defaultValue": "Key Vault Metric Alert has passed its threshold",
             "type": "securestring"
         },
         "metricAlerts_Key_Vault_Name": {
@@ -22,13 +22,44 @@
             "defaultValue" :"Availability",
             "type": "string"
         },
+        "alertSeverity": {
+            "type": "int",
+            "defaultValue": 2,
+            "allowedValues": [
+                0,
+                1,
+                2,
+                3,
+                4
+            ],
+            "metadata": {
+                "description": "Severity of alert {0,1,2,3,4}"
+            }
+        },
         "window_Size":{
             "defaultValue": "PT15M",
-        "type": "string"
+        "type": "string",
+        "allowedValues": [
+            "PT1M",
+            "PT5M",
+            "PT15M",
+            "PT30M",
+            "PT1H",
+            "PT6H",
+            "PT12H",
+            "PT24H"
+        ]
         },
         "Evaluation_Frequency":{
   "defaultValue": "PT5M",
-  "type": "string"
+  "type": "string",
+  "allowedValues": [
+    "PT1M",
+    "PT5M",
+    "PT15M",
+    "PT30M",
+    "PT1H"
+  ]
 
         },
         "Threshold_Value":{
@@ -38,7 +69,18 @@
         },
         "Operator_value":{
             "defaultValue": "LessThan",
-        "type": "string"}
+        "type": "string",
+        "allowedValues": [
+            "Equals",
+            "NotEquals",
+            "GreaterThan",
+            "GreaterThanOrEqual",
+            "LessThan",
+            "LessThanOrEqual"
+        ] 
+    
+    }
+        
     },
     "variables": {},
     "resources": [
@@ -48,7 +90,7 @@
             "name": "[parameters('metricAlerts_Key_Vault_Name')]",
             "location": "global",
             "properties": {
-                "severity": 2,
+                "severity": "[parameters('alertSeverity')]",
                 "enabled": true,
                 "scopes": "[parameters('TargetScope')]",
                 "evaluationFrequency":  "[parameters('Evaluation_Frequency')]",
