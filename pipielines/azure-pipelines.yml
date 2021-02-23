@@ -72,6 +72,6 @@ steps:
     location: 'UK South'
     templateLocation: 'Linked artifact'
     csmFile: 'Templates/MultiresourceKVMetric.json'
-    csmParametersFile: 'ParameterFiles\KVSaturationMetric.json'
+    csmParametersFile: 'ParameterFiles/KVSaturationMetric.json'
     overrideParameters: '-actiongroups_id $(actiongrp_arm.actionGroupId.value)'
     deploymentMode: 'Incremental'
