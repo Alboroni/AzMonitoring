@@ -81,5 +81,5 @@ steps:
   inputs:
     azureSubscription: $(serviceconnection)
     ScriptType: 'FilePath'
-    ScriptPath: 'Scripts\GetResourcesfromType.ps1'
+    ScriptPath: 'Scripts/GetResourcesfromType.ps1'
     ScriptArguments: '-subscriptionId $(subscriptionId) -ResourceType microsoft.network/loadbalancerspe '''
