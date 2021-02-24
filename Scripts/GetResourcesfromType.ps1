@@ -12,11 +12,11 @@ $resourceIDs = (Get-AzResource -ResourceType $resourcetype).ResourceId
 
 
 
-Write-Output "##vso[task.setvariable variable=resIds;]$resourceIDs"
+Write-Output "##vso[task.setvariable variable=resIds;]$resourceIDs[0]"
 		
     ## Creates an output variable
     
-Write-Output "##vso[task.setvariable variable=resIds;isOutput=true ]$resourceIDs"
+Write-Output "##vso[task.setvariable variable=resIds;isOutput=true ]$resourceIDs[0]"
 
 Write-Host "##vso[task.setvariable variable=resIds;]$resourceIDs"
 		
