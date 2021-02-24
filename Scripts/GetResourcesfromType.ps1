@@ -30,3 +30,5 @@ Write-Host "##vso[task.setvariable variable=testvar;]testvalue"
 
 
 write-host $env:testvar
+
+Write-Host "the end"
