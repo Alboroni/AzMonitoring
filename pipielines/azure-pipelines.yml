@@ -84,3 +84,4 @@ steps:
     ScriptType: 'FilePath'
     ScriptPath: 'Scripts/GetResourcesfromType.ps1'
     ScriptArguments: '-subscriptionId $(subscriptionId) -ResourceType microsoft.network/loadbalancers'
+    errorActionPreference: continue
