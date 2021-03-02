@@ -4,9 +4,9 @@ param (
 [Parameter(Mandatory)] $metricname,
 [Parameter(Mandatory)] $Alertname, 
 [Parameter(Mandatory)]  $actiongroups_id,
-$operator = 'GreaterThan',
-$aggregation = 'Average',
-$Threshold = '0' 
+[Parameter(Mandatory=$false)]$operator = 'GreaterThan',
+[Parameter(Mandatory=$false)]$aggregation = 'Average',
+[Parameter(Mandatory=$false)]$Threshold = '0' 
  
  )
 
