@@ -24,11 +24,14 @@ Write-Host "##vso[task.setvariable variable=resIds;]$resourceIDs"
     
 Write-Host "##vso[task.setvariable variable=resIds;isOutput=true ]$resourceIDs"
 
-Write-Output "##vso[task.setvariable variable=testvar;]testvalue"
+Write-Output "##vso[task.setvariable variable=testvar;isOutput=true]testvalue"
+
+Write-Output  "##vso[task.setvariable variable=testvar1;isOutput=true]testvalue"
 
 #Write-Host $resourceIDs
 
 
-Write-Output $env:testvar
+Write-Host " output 1 is $env:testvar"
+Write-Host " output 2 is $env:testvar1"
 
 Write-Host "the end"
