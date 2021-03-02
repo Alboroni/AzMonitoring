@@ -76,12 +76,14 @@ steps:
     overrideParameters: '-actiongroups_id $(actiongrp_arm.actionGroupId.value)'
     deploymentMode: 'Incremental'
   
-  
 - task: AzurePowerShell@5
   inputs:
     azureSubscription: $(serviceconnection)
-    TargetAzurePs: LatestVersion
     ScriptType: 'FilePath'
     ScriptPath: 'Scripts/SetMetricAlert.ps1'
-    ScriptArguments: '-subscriptionId $(subscriptionId) -ResourceType microsoft.network/loadbalancers -actiongroups_id $(actiongrp_arm.actionGroupId.value)' -metricname datapathavialbility -Alertname "Test LB Alert"
-    errorActionPreference: continue
+    ScriptArguments: '-subscriptionId $(subscriptionId) -ResourceType microsoft.network/loadbalancers -actiongroups_id $(actiongrp_arm.actionGroupId.value)'' -metricname datapathavialability -Alertname "Test LB Alert"'
+    errorActionPreference: 'continue'
+    azurePowerShellVersion: 'LatestVersion'
+
+
+
