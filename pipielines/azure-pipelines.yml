@@ -82,21 +82,6 @@ steps:
     azureSubscription: $(serviceconnection)
     TargetAzurePs: LatestVersion
     ScriptType: 'FilePath'
-    ScriptPath: 'Scripts/GetResourcesfromType.ps1'
-    ScriptArguments: '-subscriptionId $(subscriptionId) -ResourceType microsoft.network/loadbalancers'
+    ScriptPath: 'Scripts/SetMetricAlert.ps1'
+    ScriptArguments: '-subscriptionId $(subscriptionId) -ResourceType microsoft.network/loadbalancers -actiongroups_id $(actiongrp_arm.actionGroupId.value)'
     errorActionPreference: continue
-- task: Bash@3
-  inputs:
-    targetType: 'inline'
-    script: |
-      # Write your commands here
-      
-      echo $env:testvar1
-      
-      echo $(testvar1)
-      
-      echo ' test 2' 
-      
-      echo $env:testvar
-      
-      Echo ($testvar)
