@@ -16,7 +16,7 @@ Write-Output "##vso[task.setvariable variable=resIds;]$resourceIDs[0]"
 		
     ## Creates an output variable
     
-Write-Output "##vso[task.setvariable variable=resIds;isOutput=true ]$resourceIDs[0]"
+Write-Output ("##vso[task.setvariable variable=resIds;isOutput=true]$resourceIDs[0]")
 
 Write-Host "##vso[task.setvariable variable=resIds;]$resourceIDs"
 		
@@ -26,7 +26,8 @@ Write-Host "##vso[task.setvariable variable=resIds;isOutput=true ]$resourceIDs"
 
 Write-Output "##vso[task.setvariable variable=testvar;isOutput=true]testvalue"
 
-Write-Output  "##vso[task.setvariable variable=testvar1;isOutput=true]testvalue"
+Write-Output  ("##vso[task.setvariable variable=testvar1;isOutput=true]testvalue")
+
 
 #Write-Host $resourceIDs
 
