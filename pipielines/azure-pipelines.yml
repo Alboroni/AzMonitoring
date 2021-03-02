@@ -81,7 +81,7 @@ steps:
     azureSubscription: $(serviceconnection)
     ScriptType: 'FilePath'
     ScriptPath: 'Scripts/SetMetricAlert.ps1'
-    ScriptArguments: '-subscriptionId $(subscriptionId) -ResourceType microsoft.network/loadbalancers -actiongroups_id $(actiongrp_arm.actionGroupId.value)'' -metricname datapathavialability -Alertname "Test LB Alert"'
+    ScriptArguments: '-subscriptionId $(subscriptionId) -ResourceType microsoft.network/loadbalancers -actiongroups_id $(actiongrp_arm.actionGroupId.value)'' -metricname datapathavialability -Alertname 'Test''
     errorActionPreference: 'continue'
     azurePowerShellVersion: 'LatestVersion'
 
