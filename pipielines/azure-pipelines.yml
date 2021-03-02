@@ -85,7 +85,7 @@ steps:
       -subscriptionId $(subscriptionId) `
       -ResourceType microsoft.network/loadbalancers `
       -actiongroups_id $(actiongrp_arm.actionGroupId.value) `
-      -metricname datapathavialability `
+      -metricname VipAvailability `
       -Alertname Test
     azurePowerShellVersion: 'LatestVersion'
 
