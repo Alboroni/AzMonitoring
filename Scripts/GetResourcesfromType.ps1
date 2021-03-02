@@ -35,4 +35,7 @@ Write-Output  ("##vso[task.setvariable variable=testvar1;isOutput=true]testvalue
 Write-Host " output 1 is $env:testvar"
 Write-Host " output 2 is $env:testvar1"
 
+write-host $(testvar)
+Write-Host $(testvar1)
+
 Write-Host "the end"
