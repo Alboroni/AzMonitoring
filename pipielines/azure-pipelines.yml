@@ -83,5 +83,5 @@ steps:
     TargetAzurePs: LatestVersion
     ScriptType: 'FilePath'
     ScriptPath: 'Scripts/SetMetricAlert.ps1'
-    ScriptArguments: '-subscriptionId $(subscriptionId) -ResourceType microsoft.network/loadbalancers -actiongroups_id $(actiongrp_arm.actionGroupId.value)'
+    ScriptArguments: '-subscriptionId $(subscriptionId) -ResourceType microsoft.network/loadbalancers -actiongroups_id $(actiongrp_arm.actionGroupId.value)' -metricname datapathavialbility -Alertname "Test LB Alert"
     errorActionPreference: continue
