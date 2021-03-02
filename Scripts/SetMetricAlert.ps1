@@ -1,10 +1,19 @@
 param (
- [Parameter(Mandatory)]$subscriptionId,[Parameter(Mandatory)] $resourcetype, [Parameter(Mandatory)] $metricname, [Parameter(Mandatory)] $Alertname
+ [Parameter(Mandatory)]$subscriptionId,
+ [Parameter(Mandatory)]  $resourcetype,
+[Parameter(Mandatory)] $metricname,
+[Parameter(Mandatory)] $Alertname, 
+[Parameter(Mandatory)]  $actiongroups_id,
+$operator = 'GreaterThan',
+$aggregation = 'Average',
+$Threshold = '0' 
  
  )
 
+ 
 
-$criteria = New-AzMetricAlertRuleV2Criteria -MetricName $metricname  -TimeAggregation Average -Operator GreaterThan -Threshold 2
+
+$criteria = New-AzMetricAlertRuleV2Criteria -MetricName $metricname  -TimeAggregation $aggregation  -Operator $operator -Threshold $Threshold
 Write-Host $resourcetype
 
 Select-AzSubscription -Subscription $subscriptionId
