@@ -38,4 +38,4 @@ Write-Host " output 2 is $env:testvar1"
 write-host $(testvar)
 Write-Host $(testvar1)
 
-Write-Host "the end"
+Write-Host $testvar1
