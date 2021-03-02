@@ -13,7 +13,7 @@ param (
  
 
 
-$criteria = New-AzMetricAlertRuleV2Criteria -MetricName $metricname  -TimeAggregation $aggregation  -Operator $operator -Threshold $Threshold
+$criteria = New-AzMetricAlertRuleV2Criteria -MetricName $metricname  -TimeAggregation Average  -Operator GreaterThan -Threshold 0
 Write-Host $resourcetype
 
 Select-AzSubscription -Subscription $subscriptionId
