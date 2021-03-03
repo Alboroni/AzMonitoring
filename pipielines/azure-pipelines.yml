@@ -81,7 +81,12 @@ steps:
     azureSubscription: 'alexInternal'
     ScriptType: 'FilePath'
     ScriptPath: 'Scripts/SetMetricAlert.ps1'
-    ScriptArguments: '-subscriptionId $(subscriptionId) -ResourceType microsoft.network/loadbalancers -actiongroups_id $(actiongrp_arm.actionGroupId.value)'''' -metricname datapathavialability -Alertname ''Test'''
+    ScriptArguments: 
+      -subscriptionId $(subscriptionId) `
+      -ResourceType microsoft.network/loadbalancers `
+      -actiongroups_id $(actiongrp_arm.actionGroupId.value) `
+      -metricname VipAvailability `
+      -Alertname Test
     azurePowerShellVersion: 'LatestVersion'
 
 
