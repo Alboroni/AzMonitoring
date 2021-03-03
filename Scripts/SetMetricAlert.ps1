@@ -60,7 +60,7 @@ Else {
 
 Write-Host "##vso[task.setvariable variable=resIds;]$resourceIDs"
 
-Write
+
 		
     ## Creates an output variable
     
