@@ -18,7 +18,7 @@ param (
     Add-AzMetricAlertRuleV2 -Name $Alertname -ResourceGroupName 'azmonitoring' -WindowSize $WindowSize -Frequency $Frequency -TargetResourceId $res.ResourceId -Condition $criteria -ActionGroup $actiongroup -DisableRule -Severity $Severity
 
 }
-
+#Set Alert Criteria
 $criteria = New-AzMetricAlertRuleV2Criteria -MetricName $metricname  -TimeAggregation $aggregation  -Operator $operator -Threshold 0
 Write-Host $resourcetype
 
@@ -37,7 +37,7 @@ foreach ($res in $resourceIDs)
    
 else {
     
-    { Add-MetricAlert }
+    Add-MetricAlert
 }
 
 
