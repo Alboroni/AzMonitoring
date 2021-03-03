@@ -78,7 +78,7 @@ steps:
 
 - task: AzurePowerShell@5
   inputs:
-    azureSubscription: 'alexInternal'
+    azureSubscription: $(serviceconnection)
     ScriptType: 'FilePath'
     ScriptPath: 'Scripts/SetMetricAlert.ps1'
     ScriptArguments: 
@@ -89,4 +89,16 @@ steps:
       -Alertname Test
     azurePowerShellVersion: 'LatestVersion'
 
+- task: AzurePowerShell@5
+  inputs:
+    azureSubscription: $(serviceconnection)
+    ScriptType: 'FilePath'
+    ScriptPath: 'Scripts/SetMetricAlert.ps1'
+    ScriptArguments: 
+      -subscriptionId $(subscriptionId) `
+      -ResourceType microsoft.network/loadbalancers `
+      -actiongroups_id $(actiongrp_arm.actionGroupId.value) `
+      -metricname dipAvailability `
+      -Alertname TestDipAlert
+    azurePowerShellVersion: 'LatestVersion'
 
