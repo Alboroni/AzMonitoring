@@ -78,7 +78,7 @@ steps:
 
 - task: AzurePowerShell@5
   inputs:
-    azureSubscription: 'alexInternal'
+    azureSubscription: $(serviceconnection)
     ScriptType: 'FilePath'
     ScriptPath: 'Scripts/SetMetricAlert.ps1'
     ScriptArguments: 
@@ -91,7 +91,7 @@ steps:
 
 - task: AzurePowerShell@5
   inputs:
-    azureSubscription: 'alexInternal'
+    azureSubscription: $(serviceconnection)'
     ScriptType: 'FilePath'
     ScriptPath: 'Scripts/SetMetricAlert.ps1'
     ScriptArguments: 
