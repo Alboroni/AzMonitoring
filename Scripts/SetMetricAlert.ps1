@@ -15,7 +15,7 @@ param (
  Function Add-MetricAlert
 {
 
-    Add-AzMetricAlertRuleV2 -Name $Alertname -ResourceGroupName 'azmonitoring' -WindowSize $WindowSize -Frequency $Frequency -TargetResourceId $res.ResourceId -Condition $criteria -ActionGroup $actiongroup -DisableRule -Severity $Severity
+    Add-AzMetricAlertRuleV2 -Name $Alertname -ResourceGroupName 'azmonitoring' -WindowSize $WindowSize -Frequency $Frequency -TargetResourceId $res.ResourceId -Condition $criteria -ActionGroup $actiongroups_id -Severity $Severity
 
 }
 #Set Alert Criteria
