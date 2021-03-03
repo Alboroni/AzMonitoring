@@ -16,7 +16,7 @@ param (
  Function Add-MetricAlert
 {
 
-    Add-AzMetricAlertRuleV2 -Name ($Alertname + 'ResName') -ResourceGroupName 'azmonitoring' -WindowSize $WindowSize -Frequency $Frequency -TargetResourceId $res.ResourceId -Condition $criteria -ActionGroup $ag -Severity $Severity
+    Add-AzMetricAlertRuleV2 -Name ($Alertname + 'ResName') -ResourceGroupName 'azmonitoring' -WindowSize $WindowSize -Frequency $Frequency -TargetResourceId $res.ResourceId -Condition $criteria -ActionGroup $actionGroupId  -Severity $Severity
 
 }
 #Set Alert Criteria
@@ -31,11 +31,13 @@ $resourceIDs = Get-AzResource -ResourceType $resourcetype
 
 #get AG name
 
-$agname = ($actiongroups_id -split "/" )[-1]
+#$agname = ($actiongroups_id -split "/" )[-1]
 
 
 
-$ag = Get-AzActionGroup -ResourceGroupName  'azmonitoring' -Name $agname
+#$ag = Get-AzActionGroup -ResourceGroupName  'azmonitoring' -Name $agname
+
+$actionGroupId = New-AzActionGroup -ActionGroupId $actiongroups_id
 
 
 If($resourceIDs){
