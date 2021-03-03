@@ -1,6 +1,6 @@
 param (
- [Parameter(Mandatory)]$subscriptionId,
- [Parameter(Mandatory)]  $resourcetype,
+[Parameter(Mandatory)]$subscriptionId,
+[Parameter(Mandatory)]  $resourcetype,
 [Parameter(Mandatory)] $metricname,
 [Parameter(Mandatory)] $Alertname, 
 [Parameter(Mandatory)]  $actiongroups_id,
@@ -12,23 +12,33 @@ param (
  
  )
 
- 
+ Function Add-MetricAlert
+{
 
+    Add-AzMetricAlertRuleV2 -Name $Alertname -ResourceGroupName 'azmonitoring' -WindowSize $WindowSize -Frequency $Frequency -TargetResourceId $res.ResourceId -Condition $criteria -ActionGroup $actiongroup -DisableRule -Severity $Severity
+
+}
 
 $criteria = New-AzMetricAlertRuleV2Criteria -MetricName $metricname  -TimeAggregation $aggregation  -Operator $operator -Threshold 0
 Write-Host $resourcetype
 
 Select-AzSubscription -Subscription $subscriptionId
 
-$resourceIDs = (Get-AzResource -ResourceType $resourcetype).ResourceId
+$resourceIDs = Get-AzResource -ResourceType $resourcetype
+
+
 If($resourceIDs){
 foreach ($res in $resourceIDs)
 
 {
+  #Check if load balancer on standard SKU  
+ if ($res.ResourceType -eq 'microsoft.network/loadbalancers' -and $res.Sku.Name -eq 'Basic' )
+ { write-host " $res.Name is a basic SKU Load Balancer cannot set Alert"}
    
+else {
     
-    Add-AzMetricAlertRuleV2 -Name $Alertname -ResourceGroupName 'azmonitoring' -WindowSize $WindowSize -Frequency $Frequency -TargetResourceId $res -Condition $criteria -ActionGroup $actiongroup -DisableRule -Severity $Severity
-
+    { Add-MetricAlert }
+}
 
 
 
@@ -49,6 +59,8 @@ Else {
 #Write-Output ("##vso[task.setvariable variable=resIds;isOutput=true]$resourceIDs[0]")
 
 Write-Host "##vso[task.setvariable variable=resIds;]$resourceIDs"
+
+Write
 		
     ## Creates an output variable
     
