@@ -38,6 +38,12 @@ If($resourceIDs){
 foreach ($res in $resourceIDs)
 
 {
+
+  
+    $resname = $res.ResourceName.ToString()
+
+    Write-Host = $resname + " Setting alert"
+
   #Check if load balancer on standard SKU  
  if ($res.ResourceType -eq 'microsoft.network/loadbalancers' -and $res.Sku.Name -eq 'Basic' )
  { write-host " $res.Name is a basic SKU Load Balancer cannot set Alert"}
@@ -45,7 +51,8 @@ foreach ($res in $resourceIDs)
 else {
     
     # Build Name for Alert 
-  $aname = $Alertname + $res.ResourceName
+  $aname = ($Alertname + $resname)
+
 
     Add-MetricAlert $aname
 }
