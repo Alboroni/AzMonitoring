@@ -6,8 +6,9 @@ param (
 [Parameter(Mandatory)]  $actiongroups_id,
 [Parameter(Mandatory=$false)]$operator = 'GreaterThan',
 [Parameter(Mandatory=$false)]$aggregation = 'Average',
-[Parameter(Mandatory=$false)]$WindowSize = '00:05:00' ,
-[Parameter(Mandatory=$false)]$Frequency = '00:05:00' ,
+[Parameter(Mandatory=$false)]$WindowSize = '00:10:00' ,
+[Parameter(Mandatory=$false)]$Frequency = '00:10:00' ,
+[Parameter(Mandatory=$false)]$Threshold= '0' ,
 [Parameter(Mandatory=$false)]$Severity = '2' 
  
  )
@@ -15,11 +16,13 @@ param (
  Function Add-MetricAlert
 {
 
-    Add-AzMetricAlertRuleV2 -Name $Alertname -ResourceGroupName 'azmonitoring' -WindowSize $WindowSize -Frequency $Frequency -TargetResourceId $res.ResourceId -Condition $criteria -ActionGroup $actiongroups_id -Severity $Severity
+    Add-AzMetricAlertRuleV2 -Name ($Alertname + 'ResName') -ResourceGroupName 'azmonitoring' -WindowSize $WindowSize -Frequency $Frequency -TargetResourceId $res.ResourceId -Condition $criteria -ActionGroup $actiongroups_id -Severity $Severity
 
 }
 #Set Alert Criteria
-$criteria = New-AzMetricAlertRuleV2Criteria -MetricName $metricname  -TimeAggregation $aggregation  -Operator $operator -Threshold 0
+
+$criteria = New-AzMetricAlertRuleV2Criteria -MetricName $metricname  -TimeAggregation $aggregation  -Operator $operator -Threshold $Threshold
+
 Write-Host $resourcetype
 
 Select-AzSubscription -Subscription $subscriptionId
