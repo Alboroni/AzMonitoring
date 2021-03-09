@@ -15,7 +15,7 @@ param (
  Function New-ActivityAlert ($altname)
  {
 
-    Set-AzActivityLogAlert -Location 'Global' `
+    Set-AzActivityLogAlert -Location 'Global' 
     -Name $altname`
     -ResourceGroupName 'azmonitoring'
     -Scope $scope
@@ -25,7 +25,7 @@ param (
  }
 
 
- $condition1 = New-AzActivityLogAlertCondition -Field 'category' -Equal $Category
+$condition1 = New-AzActivityLogAlertCondition -Field 'category' -Equal $Category
 $condition2 = New-AzActivityLogAlertCondition -Field 'operationName' -Equal $operationname
 
 $actionGroupId = New-AzActionGroup -ActionGroupId $actiongroups_id
@@ -59,3 +59,6 @@ $scope = '/subscriptions/' + $subscriptionId
 
 
 }
+
+
+New-ActivityAlert $Alertname
