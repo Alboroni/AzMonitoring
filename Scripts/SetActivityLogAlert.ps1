@@ -2,7 +2,7 @@ param (
 [Parameter(Mandatory)]$subscriptionId,
 [Parameter(Mandatory)]  $resourcetype,
 #if targetting RGs (
-[Parameter(Mandatory=$false)] $resourcegroups,
+[Parameter(Mandatory=$false)][string[]] $resourcegroups,
 [Parameter(Mandatory)] $Alertname, 
 [Parameter(Mandatory)]  $actiongroups_id,
 [Parameter(Mandatory=$false)]$Category = 'Administrative',
@@ -36,12 +36,20 @@ Select-AzSubscription -Subscription $subscriptionId
 #determine the scope for alerts
 if ($resourcegroups)
 {
-
+   $rgscope = @()
    #uses format  /subscriptions/00000000-0000-0000-0000-0000-00000000/resourceGroups/ResourceGroupName" 
+foreach ($rg in $resourcegroups)
 
-$scope =  '/subscriptions/' + $subscriptionId + '/resourceGroups/' + $resourcegroups
+{
 
 
+$RGscope +=  '/subscriptions/' + $subscriptionId + '/resourceGroups/' + $rg
+
+
+
+}
+
+ $scope = $rgscope.ToString()
 
 }
  
