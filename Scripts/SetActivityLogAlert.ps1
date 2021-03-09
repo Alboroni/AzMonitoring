@@ -1,12 +1,11 @@
 param (
 [Parameter(Mandatory)]$subscriptionId,
 [Parameter(Mandatory)]  $resourcetype,
-#if targetting RGs (
-[Parameter(Mandatory=$false)][string[]] $resourcegroups,
+#[Parameter(Mandatory=$false)][string[]] $resourcegroups,
 [Parameter(Mandatory)] $Alertname, 
 [Parameter(Mandatory)]  $actiongroups_id,
 [Parameter(Mandatory=$false)]$Category = 'Administrative',
-[Parameter(Mandatory)]$operationname 
+[Parameter(Mandatory)]$operationName 
 
 
  )
