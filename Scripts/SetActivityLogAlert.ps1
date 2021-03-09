@@ -25,7 +25,7 @@ param (
 
 
 $condition1 = New-AzActivityLogAlertCondition -Field 'category' -Equal $Category
-$condition2 = New-AzActivityLogAlertCondition -Field 'operationName' -Equal $operationname
+$condition2 = New-AzActivityLogAlertCondition -Field 'operationName' -Equal $operationName
 
 $actionGroupId = New-AzActionGroup -ActionGroupId $actiongroups_id
 
