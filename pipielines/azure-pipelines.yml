@@ -102,3 +102,15 @@ steps:
       -Alertname TestDipAlert
     azurePowerShellVersion: 'LatestVersion'
 
+- task: AzurePowerShell@5
+  inputs:
+    azureSubscription: $(serviceconnection)
+    ScriptType: 'FilePath'
+    ScriptPath: 'Scripts/SetActivityLogAlert.ps1'
+    ScriptArguments: 
+      -subscriptionId $(subscriptionId) `
+      -ResourceType microsoft.network/loadbalancers `
+      -actiongroups_id $(actiongrp_arm.actionGroupId.value) `
+      -operationname Microsoft.Network/routeTables/write `
+      -Alertname TestRoutetableAlert
+    azurePowerShellVersion: 'LatestVersion'
