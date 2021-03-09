@@ -26,6 +26,8 @@ $actionGroupId = New-AzActionGroup -ActionGroupId $actiongroups_id
 
 Select-AzSubscription -Subscription $subscriptionId
 
+$sub = Get-AzSubscription -SubscriptionId $subscriptionId
+
 
 #determine the scope for alerts
 if ($resourcegroups)
@@ -49,7 +51,7 @@ $RGscope +=  '/subscriptions/' + $subscriptionId + '/resourceGroups/' + $rg
  
 else
 {
-$scope = '/subscriptions/' + $subscriptionId
+$scope = "/subscriptions/$sub"
 
 
 }
