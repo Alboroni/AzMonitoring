@@ -83,6 +83,7 @@ steps:
     ScriptPath: 'Scripts/SetMetricAlert.ps1'
     ScriptArguments: 
       -subscriptionId $(subscriptionId) `
+      -resourcegroup $(RGname) `
       -ResourceType microsoft.network/loadbalancers `
       -actiongroups_id $(actiongrp_arm.actionGroupId.value) `
       -metricname VipAvailability `
@@ -96,6 +97,7 @@ steps:
     ScriptPath: 'Scripts/SetMetricAlert.ps1'
     ScriptArguments: 
       -subscriptionId $(subscriptionId) `
+      -resourcegroup $(RGname) `
       -ResourceType microsoft.network/loadbalancers `
       -actiongroups_id $(actiongrp_arm.actionGroupId.value) `
       -metricname dipAvailability `
@@ -109,6 +111,7 @@ steps:
     ScriptPath: 'Scripts/SetActivityLogAlert.ps1'
     ScriptArguments: 
       -subscriptionId $(subscriptionId) `
+      -resourcegroup $(RGname) `
       -actiongroups_id $(actiongrp_arm.actionGroupId.value) `
       -enable $(AARouteEnable) `
       -operationName Microsoft.Network/routeTables/routes/write `
