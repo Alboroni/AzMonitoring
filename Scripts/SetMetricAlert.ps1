@@ -1,9 +1,10 @@
 param (
 [Parameter(Mandatory)]$subscriptionId,
-[Parameter(Mandatory)]  $resourcetype,
-[Parameter(Mandatory)] $metricname,
-[Parameter(Mandatory)] $Alertname, 
-[Parameter(Mandatory)]  $actiongroups_id,
+[Parameter(Mandatory)]$resourcegroup,
+[Parameter(Mandatory)]$resourcetype,
+[Parameter(Mandatory)]$metricname,
+[Parameter(Mandatory)]$Alertname, 
+[Parameter(Mandatory)]$actiongroups_id,
 [Parameter(Mandatory=$false)]$operator = 'GreaterThan',
 [Parameter(Mandatory=$false)]$aggregation = 'Average',
 [Parameter(Mandatory=$false)]$WindowSize = '00:15:00' ,
@@ -16,7 +17,7 @@ param (
  Function Add-MetricAlert ($alertresname)
 {
 
-    Add-AzMetricAlertRuleV2 -Name $alertresname -ResourceGroupName 'azmonitoring' -WindowSize $WindowSize -Frequency $Frequency -TargetResourceId $res.ResourceId -Condition $criteria -ActionGroup $actionGroupId  -Severity $Severity
+    Add-AzMetricAlertRuleV2 -Name $alertresname -ResourceGroupName  $resourcegroup -WindowSize $WindowSize -Frequency $Frequency -TargetResourceId $res.ResourceId -Condition $criteria -ActionGroup $actionGroupId  -Severity $Severity
 
 }
 #Set Alert Criteria
