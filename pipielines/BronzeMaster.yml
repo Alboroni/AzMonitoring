@@ -115,6 +115,6 @@ steps:
       -actiongroups_id $(actiongrp_arm.actionGroupId.value) `
       -enable $(AARouteEnable) `
       -operationName Microsoft.Network/routeTables/routes/write `
-      -resourcegroup $(targetRTResourceGroup) `
+      -targetresourcegroup $(targetRTResourceGroup) `
       -Alertname AAroutetableupdate
     azurePowerShellVersion: 'LatestVersion'
