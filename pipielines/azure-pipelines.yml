@@ -110,7 +110,7 @@ steps:
     ScriptArguments: 
       -subscriptionId $(subscriptionId) `
       -actiongroups_id $(actiongrp_arm.actionGroupId.value) `
-      -operationName Microsoft.Network/routeTables/write `
+      -operationName Microsoft.Network/routeTables/routes/write `
       -resourcegroup shareservices
       -Alertname TestRoutetableAlert
     azurePowerShellVersion: 'LatestVersion'
