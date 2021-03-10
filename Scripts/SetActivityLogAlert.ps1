@@ -1,5 +1,6 @@
 param (
 [Parameter(Mandatory)]$subscriptionId,
+[Parameter(Mandatory=$false)][bool]$enable =$true,
 [Parameter(Mandatory=$false)] $resourcetype,
 [Parameter(Mandatory=$false)]$resourcegroup,
 [Parameter(Mandatory)] $Alertname, 
@@ -13,8 +14,10 @@ param (
 
  Function New-ActivityAlert ($altname)
  {
+if ($enable -eq $true)
+    {Set-AzActivityLogAlert -Location 'Global'  -Name $altname -ResourceGroupName 'azmonitoring'-Scope $scope -Action $actionGroupId -Condition $condition1, $condition2}
 
-    Set-AzActivityLogAlert -Location 'Global'  -Name $altname -ResourceGroupName 'azmonitoring'-Scope $scope -Action $actionGroupId -Condition $condition1, $condition2
+else {Write-Host "Not setting alert as set enanle is set to false"}
 
  }
 

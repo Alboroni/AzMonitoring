@@ -1,0 +1,117 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- script: echo Hello, world!
+  displayName: 'Run a one-line script'
+
+- script: |
+    echo Add other tasks to build, test, and deploy your project.
+    echo See https://aka.ms/yaml
+  displayName: 'Run a multi-line script'
+  
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: $(serviceconnection)
+    subscriptionId: $(subscriptionId)
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: $(RGname)
+    location: 'UK South'
+    templateLocation: 'Linked artifact'
+    csmFile: 'Templates/actiongrouptemplate.json'
+    csmParametersFile: 'ParameterFiles/ActionGrpParams.json'
+    deploymentMode: 'Incremental'
+    deploymentName: 'actgrpdeploy'
+    deploymentOutputs: actiongrp_arm
+
+
+- task: AzureResourceManagerTemplateDeployment@3 
+  inputs:
+   deploymentScope: 'Resource Group'
+   azureResourceManagerConnection: $(serviceconnection)
+   subscriptionId: $(subscriptionId)
+   action: 'Create Or Update Resource Group'
+   resourceGroupName: $(RGname)
+   location: 'UK South'
+   templateLocation: 'Linked artifact'
+   csmFile: 'Templates/ResourceHealthTemplate.json'
+   deploymentMode: 'Incremental'
+   deploymentName: 'RHMonDeploy'
+   overrideParameters: -actionGroupResourceId $(actiongrp_arm.actionGroupId.value) -activityLogAlertName 'Resource Health Critical Alerts'
+
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: $(serviceconnection)
+    subscriptionId: $(subscriptionId)
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: $(RGName)
+    location: 'UK South'
+    templateLocation: 'Linked artifact'
+    csmFile: 'Templates/MultiresourceKVMetric.json'
+    overrideParameters: '-actiongroups_id $(actiongrp_arm.actionGroupId.value)'
+    deploymentName: "KVmetric"
+    deploymentMode: 'Incremental'
+
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: $(serviceconnection)
+    subscriptionId: 'db99463c-2a00-433c-a39b-f63083b719a4'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: $(RGName)
+    location: 'UK South'
+    templateLocation: 'Linked artifact'
+    csmFile: 'Templates/MultiresourceKVMetric.json'
+    csmParametersFile: 'ParameterFiles/KVSaturationMetric.json'
+    overrideParameters: '-actiongroups_id $(actiongrp_arm.actionGroupId.value)'
+    deploymentMode: 'Incremental'
+
+- task: AzurePowerShell@5
+  inputs:
+    azureSubscription: $(serviceconnection)
+    ScriptType: 'FilePath'
+    ScriptPath: 'Scripts/SetMetricAlert.ps1'
+    ScriptArguments: 
+      -subscriptionId $(subscriptionId) `
+      -ResourceType microsoft.network/loadbalancers `
+      -actiongroups_id $(actiongrp_arm.actionGroupId.value) `
+      -metricname VipAvailability `
+      -Alertname HealthAvailLB
+    azurePowerShellVersion: 'LatestVersion'
+
+- task: AzurePowerShell@5
+  inputs:
+    azureSubscription: $(serviceconnection)
+    ScriptType: 'FilePath'
+    ScriptPath: 'Scripts/SetMetricAlert.ps1'
+    ScriptArguments: 
+      -subscriptionId $(subscriptionId) `
+      -ResourceType microsoft.network/loadbalancers `
+      -actiongroups_id $(actiongrp_arm.actionGroupId.value) `
+      -metricname dipAvailability `
+      -Alertname DataAvailLB
+    azurePowerShellVersion: 'LatestVersion'
+
+- task: AzurePowerShell@5
+  inputs:
+    azureSubscription: $(serviceconnection)
+    ScriptType: 'FilePath'
+    ScriptPath: 'Scripts/SetActivityLogAlert.ps1'
+    ScriptArguments: 
+      -subscriptionId $(subscriptionId) `
+      -actiongroups_id $(actiongrp_arm.actionGroupId.value) `
+      -enable $(AARouteEnable) `
+      -operationName Microsoft.Network/routeTables/routes/write `
+      -resourcegroup $(targetRTResourceGroup) `
+      -Alertname AAroutetableupdate
+    azurePowerShellVersion: 'LatestVersion'
