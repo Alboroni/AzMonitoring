@@ -1,6 +1,6 @@
 param (
 [Parameter(Mandatory)]$subscriptionId,
-[Parameter(Mandatory)=$false] $resourcetype,
+[Parameter(Mandatory=$false)] $resourcetype,
 [Parameter(Mandatory=$false)]$resourcegroup,
 [Parameter(Mandatory)] $Alertname, 
 [Parameter(Mandatory)]  $actiongroups_id,
