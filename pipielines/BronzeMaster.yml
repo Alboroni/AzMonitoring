@@ -87,7 +87,9 @@ steps:
       -ResourceType microsoft.network/loadbalancers `
       -actiongroups_id $(actiongrp_arm.actionGroupId.value) `
       -metricname VipAvailability `
-      -Alertname HealthAvailLB
+      -Threshold 90 `
+      -Operator LessThan `
+      -Alertname HealthProbeLoadBalancer
     azurePowerShellVersion: 'LatestVersion'
 
 - task: AzurePowerShell@5
@@ -101,7 +103,9 @@ steps:
       -ResourceType microsoft.network/loadbalancers `
       -actiongroups_id $(actiongrp_arm.actionGroupId.value) `
       -metricname dipAvailability `
-      -Alertname DataAvailLB
+      -Threshold 90 `
+      -Operator LessThan `
+      -Alertname DataAvailLoadBalancer
     azurePowerShellVersion: 'LatestVersion'
 
 - task: AzurePowerShell@5
