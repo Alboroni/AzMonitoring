@@ -17,6 +17,13 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'alexInternal'
+    scriptType: 'bash'
+    scriptLocation: 'inlineScript'
+    inlineScript: 'az group create --name $(RGname) --location westeurope --tags Dept=Finance Status=Normal'
   
 - task: AzureResourceManagerTemplateDeployment@3
   inputs:
