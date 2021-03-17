@@ -23,7 +23,7 @@ steps:
     azureSubscription: 'alexInternal'
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
-    inlineScript: 'az group create --name $(RGname) --location westeurope --tags Dept=Finance Status=Normal'
+    inlineScript: 'az group create --name $(RGname) --location uksouth --tags "Parent Business"="Shared IT core services" Portfolio="Digital and Technology" Product="CIP Platform" "Service Line"="Cloud and Infrastructure Platforms" "Service Offering"="Infrastructure Business Engagement"'
   
 - task: AzureResourceManagerTemplateDeployment@3
   inputs:
@@ -56,6 +56,7 @@ steps:
    overrideParameters: -actionGroupResourceId $(actiongrp_arm.actionGroupId.value) -activityLogAlertName 'Resource Health Critical Alerts'
 
 - task: AzureResourceManagerTemplateDeployment@3
+  condition: eq(variables.keyvault, true)
   inputs:
     deploymentScope: 'Resource Group'
     azureResourceManagerConnection: $(serviceconnection)
@@ -128,4 +129,23 @@ steps:
       -operationName Microsoft.Network/routeTables/routes/write `
       -targetresourcegroup $(targetRTResourceGroup) `
       -Alertname AAroutetableupdate
+    azurePowerShellVersion: 'LatestVersion'
+- task: AzurePowerShell@5
+  inputs:
+    azureSubscription: 'alexInternal'
+    ScriptType: 'FilePath'
+    ScriptPath: 'Scripts/MetricwithDimensiontargetted.ps1'
+    ScriptArguments: 
+      -subscriptionId $(subscriptionId) `
+      -resourcegroup $(RGname) `
+      -ResourceType microsoft.automation/automationaccounts `
+      -actiongroups_id $(actiongrp_arm.actionGroupId.value) `
+      -metricname TotalJob `
+      -Threshold 0 `
+      -Operator GreaterThan `
+      -Dim1Name Runbook `
+      -Dim1Value GetWeatherData `
+      -Dim2Name Status `
+      -Dim2Value Failed `
+      -Alertname RunbookFail
     azurePowerShellVersion: 'LatestVersion'
