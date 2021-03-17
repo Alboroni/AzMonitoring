@@ -13,8 +13,8 @@ param (
 [Parameter(Mandatory=$false)]$Threshold= '0' ,
 [Parameter(Mandatory=$false)]$Dim1Name= '0' ,
 [Parameter(Mandatory=$false)]$Dim1Value= '0' ,
-[Parameter(Mandatory=$false)]$Dim2Name= '0' ,
-[Parameter(Mandatory=$false)]$Dim2Value= '0' ,
+[Parameter(Mandatory=$false)]$Dim2Name ,
+[Parameter(Mandatory=$false)]$Dim2Value ,
 [Parameter(Mandatory=$false)]$Severity = '2' 
 
  
@@ -36,7 +36,16 @@ If($Dim1Name -and $Dim2Name)
 
 If ($Dim1Name -and !$Dim2Name)
 
-{}
+{
+    $dim1 = New-AzMetricAlertRuleV2DimensionSelection  -DimensionName $Dim1Name -ValuesToInclude $Dim1Value
+
+    $criteria = New-AzMetricAlertRuleV2Criteria -MetricName $metricname -DimensionSelection $dim1,$dim2   -TimeAggregation $aggregation  -Operator $operator -Threshold $Threshold
+
+    Add-AzMetricAlertRuleV2 -Name $alertresname -ResourceGroupName  $resourcegroup -WindowSize $WindowSize -Frequency $Frequency -TargetResourceId $res.ResourceId -Condition $criteria -ActionGroup $actionGroupId  -Severity $Severity
+
+
+
+}
 #Set Alert Criteria
 
 
@@ -66,18 +75,54 @@ foreach ($res in $resourceIDs)
 
     Write-Host = $resname + " Setting alert"
 
-  #Check if load balancer on standard SKU  
- if ($res.ResourceType -eq 'microsoft.network/loadbalancers' -and $res.Sku.Name -eq 'Basic' )
- { write-host " $res.Name is a basic SKU Load Balancer cannot set Alert"}
+
+    Switch ($res.ResourceType) 
+    {
+       'microsoft.automation/automationaccounts' {   
+   $runbook = Get-AzAutomtionRunbook -ResourceGroupName $res.ResourceGroupName -AutomationAccountName $resname -Name $Dim1Value
    
-else {
-    
-    # Build Name for Alert 
-  $aname = ($Alertname + $resname)
+   if ($runbook) {
+ write-Host $Dim1Value " $Dim1value runbook round setting alerts on $resname Autoccount"
+ $aname = ($Alertname + $resname)
+ Add-MetricAlert $aname
 
+   }
+   else {
 
-    Add-MetricAlert $aname
-}
+    write-host " $res.Name does not have a $Dim1Value runbook not setting alert"
+   } 
+
+   
+   
+   
+   
+   
+   
+    }  
+
+    'microsoft.network/loadbalancers' {
+        if ($res.ResourceType -eq 'microsoft.network/loadbalancers' -and $res.Sku.Name -eq 'Basic' )
+        { write-host " $res.Name is a basic SKU Load Balancer cannot set Alert"}
+          
+       else {
+           
+           # Build Name for Alert 
+         $aname = ($Alertname + $resname)
+       
+       
+           Add-MetricAlert $aname
+       }
+
+    }
+
+    default { $aname = ($Alertname + $resname)
+       
+       
+        Add-MetricAlert $aname}
+
+    }
+  #Check if load balancer on standard SKU  
+
 
 
 

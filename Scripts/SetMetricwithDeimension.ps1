@@ -45,7 +45,22 @@ foreach ($res in $resourceIDs)
 
     Write-Host = $resname + " Setting alert"
 
-  #Check if load balancer on standard SKU  
+  #Checks dependent on RT type 
+
+
+ Switch ($res.ResourceType) 
+ {
+    'microsoft.automation/automationaccounts' { 
+
+$runbook = Get-AzAutomtionRunbook -ResourceGroupName $res.ResourceGroupName -AutomationAccountName $resname -Name 
+
+
+
+    }
+
+
+
+ }
  if ($res.ResourceType -eq 'microsoft.network/loadbalancers' -and $res.Sku.Name -eq 'Basic' )
  { write-host " $res.Name is a basic SKU Load Balancer cannot set Alert"}
    
