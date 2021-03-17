@@ -130,3 +130,22 @@ steps:
       -targetresourcegroup $(targetRTResourceGroup) `
       -Alertname AAroutetableupdate
     azurePowerShellVersion: 'LatestVersion'
+- task: AzurePowerShell@5
+  inputs:
+    azureSubscription: 'alexInternal'
+    ScriptType: 'FilePath'
+    ScriptPath: 'Scripts/MetricwithDimensiontargetted.ps1'
+    ScriptArguments: '
+    -subscriptionId $(subscriptionId) `
+    -resourcegroup $(RGname) `
+    -ResourceType microsoft.automation/automationaccounts `
+    -actiongroups_id $(actiongrp_arm.actionGroupId.value) `
+    -metricname TotalJob `
+    -Threshold 0 `
+    -Operator GreaterThan `
+    -Dim1Name Runbook `
+    -Dim1Value GetWeatherData `
+    -Dim2Name Status `
+    -Dim2Value Failed `
+    -Alertname RunbookFail
+    azurePowerShellVersion: 'LatestVersion'
