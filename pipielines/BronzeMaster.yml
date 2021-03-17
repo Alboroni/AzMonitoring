@@ -135,7 +135,7 @@ steps:
     azureSubscription: 'alexInternal'
     ScriptType: 'FilePath'
     ScriptPath: 'Scripts/MetricwithDimensiontargetted.ps1'
-    ScriptArguments: '
+    ScriptArguments: 
     -subscriptionId $(subscriptionId) `
     -resourcegroup $(RGname) `
     -ResourceType microsoft.automation/automationaccounts `
