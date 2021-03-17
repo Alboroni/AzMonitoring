@@ -23,7 +23,7 @@ steps:
     azureSubscription: 'alexInternal'
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
-    inlineScript: 'az group create --name $(RGname) --location uksouth --tags Dept=Finance Status=Normal'
+    inlineScript: 'az group create --name $(RGname) --location uksouth --tags Service Offering=Finance Status=Normal'
   
 - task: AzureResourceManagerTemplateDeployment@3
   inputs:
