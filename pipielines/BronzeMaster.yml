@@ -125,7 +125,6 @@ steps:
       -subscriptionId $(subscriptionId) `
       -resourcegroup $(RGname) `
       -actiongroups_id $(actiongrp_arm.actionGroupId.value) `
-      -enable $(AARouteEnable) `
       -operationName Microsoft.Network/routeTables/routes/write `
       -targetresourcegroup $(targetRTResourceGroup) `
       -Alertname AAroutetableupdate
