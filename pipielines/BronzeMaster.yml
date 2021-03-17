@@ -56,7 +56,7 @@ steps:
    overrideParameters: -actionGroupResourceId $(actiongrp_arm.actionGroupId.value) -activityLogAlertName 'Resource Health Critical Alerts'
 
 - task: AzureResourceManagerTemplateDeployment@3
-  condition: eq($(keyvault), true)
+  condition: eq(variables.keyvault, true)
   inputs:
     deploymentScope: 'Resource Group'
     azureResourceManagerConnection: $(serviceconnection)
