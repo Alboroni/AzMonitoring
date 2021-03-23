@@ -52,7 +52,7 @@ foreach ($res in $resourceIDs)
  {
     'microsoft.automation/automationaccounts' { 
 
-$runbook = Get-AzAutomtionRunbook -ResourceGroupName $res.ResourceGroupName -AutomationAccountName $resname -Name 
+$runbook = Get-AzAutomationRunbook -ResourceGroupName $res.ResourceGroupName -AutomationAccountName $resname -Name 
 
 
 
