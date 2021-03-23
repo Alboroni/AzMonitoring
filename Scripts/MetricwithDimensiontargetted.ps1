@@ -79,7 +79,7 @@ foreach ($res in $resourceIDs)
     Switch ($res.ResourceType) 
     {
        'microsoft.automation/automationaccounts' {   
-   $runbook = Get-AzAutomtionRunbook -ResourceGroupName $res.ResourceGroupName -AutomationAccountName $resname -Name $Dim1Value
+   $runbook = Get-AzAutomationRunbook -ResourceGroupName $res.ResourceGroupName -AutomationAccountName $resname -Name $Dim1Value
    
    if ($runbook) {
  write-Host $Dim1Value " $Dim1value runbook round setting alerts on $resname Autoccount"
