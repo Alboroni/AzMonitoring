@@ -81,18 +81,49 @@ foreach ($res in $resourceIDs)
        'microsoft.automation/automationaccounts' {   
    
    
-   if ($resourcename) {
-      # $runbook = Get-AzAutomationRunbook -ResourceGroupName $res.ResourceGroupName -AutomationAccountName $resname -Name $Dim1Value
- write-Host $Dim1Value " $Dim1value runbook found setting alerts on $resname Autoccount"
-
+   if ($resourcename -and ($Dim1Value -ne '*')) 
+   {
+      $runbook = Get-AzAutomationRunbook -ResourceGroupName $res.ResourceGroupName -AutomationAccountName $resourcename -Name $Dim1Value
+ write-Host  " $Dim1value runbook found setting alerts on $resname Autoccount"
+if($runbook) {
  $aname = ($Alertname + $resname)
  Add-MetricAlert $aname
+}
+else {
 
+    write-Host   "$Dim1value not runbook found setting not setting alerts on $resname Autoccount"
+
+}
    }
+   elseif ($resourcename -and ($Dim1Value -eq '*')) {
+
+
+$aname = ($Alertname + $resname)
+ Add-MetricAlert $aname
+
+       
+   } 
+   
+   
    else {
 
-    write-host "Automation Accounts require the resourcename of the Autoation account to set as aprametrr for dimension alerts in this moduile"
-   } 
+    if($Dim1Value -eq '*'){
+
+
+
+        $aname = ($Alertname + $resname)
+        Add-MetricAlert $aname
+
+
+    }
+
+else{
+    write-host "Please set resourcename parameter if setting Automation account runbook metric alert without wildcard"
+
+
+}
+
+       } 
 
    
    
@@ -100,7 +131,7 @@ foreach ($res in $resourceIDs)
    
    
    
-    }  
+    
 
     'microsoft.network/loadbalancers' {
         if ($res.ResourceType -eq 'microsoft.network/loadbalancers' -and $res.Sku.Name -eq 'Basic' )
