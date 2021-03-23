@@ -131,7 +131,7 @@ steps:
     azurePowerShellVersion: 'LatestVersion'
 - task: AzurePowerShell@5
   inputs:
-    azureSubscription: 'alexInternal'
+    azureSubscription: $(serviceconnection)
     ScriptType: 'FilePath'
     ScriptPath: 'Scripts/MetricwithDimensiontargetted.ps1'
     ScriptArguments: 
