@@ -32,7 +32,7 @@ If($Dim1Name -and $Dim2Name)
         
         Add-AzMetricAlertRuleV2 -Name $alertresname -ResourceGroupName  $resourcegroup -WindowSize $WindowSize -Frequency $Frequency -TargetResourceId $res.ResourceId -Condition $criteria -ActionGroup $actionGroupId  -Severity $Severity}
 
-}
+
 
 If ($Dim1Name -and !$Dim2Name)
 
@@ -47,6 +47,7 @@ If ($Dim1Name -and !$Dim2Name)
 
 }
 #Set Alert Criteria
+}
 
 
 Write-Host $resourcetype
@@ -85,17 +86,19 @@ foreach ($res in $resourceIDs)
    {
       $runbook = Get-AzAutomationRunbook -ResourceGroupName $res.ResourceGroupName -AutomationAccountName $resourcename -Name $Dim1Value
  write-Host  " $Dim1value runbook found setting alerts on $resname Autoccount"
-if($runbook) {
+            if($runbook) {
  $aname = ($Alertname + $resname)
  Add-MetricAlert $aname
-}
-else {
+                        }
+            else {
 
     write-Host   "$Dim1value not runbook found setting not setting alerts on $resname Autoccount"
 
-}
+                    }
    }
-   elseif ($resourcename -and ($Dim1Value -eq '*')) {
+
+   elseif ($resourcename -and ($Dim1Value -eq '*'))
+    {
 
 
 $aname = ($Alertname + $resname)
@@ -126,11 +129,11 @@ else{
        } 
 
    
+    }
    
    
    
-   
-   
+
     
 
     'microsoft.network/loadbalancers' {
