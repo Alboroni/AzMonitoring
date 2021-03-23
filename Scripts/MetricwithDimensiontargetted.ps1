@@ -79,17 +79,19 @@ foreach ($res in $resourceIDs)
     Switch ($res.ResourceType) 
     {
        'microsoft.automation/automationaccounts' {   
-   $runbook = Get-AzAutomationRunbook -ResourceGroupName $res.ResourceGroupName -AutomationAccountName $resname -Name $Dim1Value
    
-   if ($runbook) {
- write-Host $Dim1Value " $Dim1value runbook round setting alerts on $resname Autoccount"
+   
+   if ($resourcename) {
+      # $runbook = Get-AzAutomationRunbook -ResourceGroupName $res.ResourceGroupName -AutomationAccountName $resname -Name $Dim1Value
+ write-Host $Dim1Value " $Dim1value runbook found setting alerts on $resname Autoccount"
+
  $aname = ($Alertname + $resname)
  Add-MetricAlert $aname
 
    }
    else {
 
-    write-host " $res.Name does not have a $Dim1Value runbook not setting alert"
+    write-host "Automation Accounts require the resourcename of the Autoation account to set as aprametrr for dimension alerts in this moduile"
    } 
 
    
