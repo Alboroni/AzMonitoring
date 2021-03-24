@@ -138,13 +138,13 @@ steps:
       -subscriptionId $(subscriptionId) `
       -resourcegroup $(RGname) `
       -ResourceType microsoft.automation/automationaccounts `
-      -resourcename AlexyoAuto ` 
+      -resourcename $(automationaccount) ` 
       -actiongroups_id $(actiongrp_arm.actionGroupId.value) `
       -metricname TotalJob `
       -Threshold 0 `
       -Operator GreaterThan `
       -Dim1Name Runbook `
-      -Dim1Value * `
+      -Dim1Value $(runbookname) `
       -Dim2Name Status `
       -Dim2Value Failed `
       -Alertname RunbookFail
