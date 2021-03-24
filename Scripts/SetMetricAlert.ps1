@@ -2,6 +2,7 @@ param (
 [Parameter(Mandatory)]$subscriptionId,
 [Parameter(Mandatory)]$resourcegroup,
 [Parameter(Mandatory)]$resourcetype,
+[Parameter(Mandatory=$false)]$targetresourcegroup,
 [Parameter(Mandatory)]$metricname,
 [Parameter(Mandatory)]$Alertname, 
 [Parameter(Mandatory)]$actiongroups_id,
@@ -28,8 +29,16 @@ Write-Host $resourcetype
 
 Select-AzSubscription -Subscription $subscriptionId
 
-$resourceIDs = Get-AzResource -ResourceType $resourcetype
+if($targetresourcegroup)
 
+{
+    $resourceIDs = Get-AzResource -ResourceType $resourcetype -ResourceGroupName $targetresourcegroup
+
+}
+
+else{
+$resourceIDs = Get-AzResource -ResourceType $resourcetype
+}
 
 
 $actionGroupId = New-AzActionGroup -ActionGroupId $actiongroups_id
