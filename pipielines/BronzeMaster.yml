@@ -113,7 +113,8 @@ steps:
       -metricname dipAvailability `
       -Threshold 90 `
       -Operator LessThan `
-      -Alertname DataAvailLoadBalancer
+      -Alertname DataAvailLoadBalancer `
+      -Description "The Data path Availabiilty of the Load Balancer is below currrent Threshold" 
     azurePowerShellVersion: 'LatestVersion'
 
 - task: AzurePowerShell@5
