@@ -71,6 +71,7 @@ steps:
     deploymentMode: 'Incremental'
 
 - task: AzureResourceManagerTemplateDeployment@3
+  condition: eq(variables.keyvault, true)
   inputs:
     deploymentScope: 'Resource Group'
     azureResourceManagerConnection: $(serviceconnection)
