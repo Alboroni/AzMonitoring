@@ -11,14 +11,15 @@ param (
 [Parameter(Mandatory=$false)]$WindowSize = '00:15:00' ,
 [Parameter(Mandatory=$false)]$Frequency = '00:05:00' ,
 [Parameter(Mandatory=$false)]$Threshold= '0' ,
-[Parameter(Mandatory=$false)]$Severity = '2' 
+[Parameter(Mandatory=$false)]$Severity = '2' ,
+[Parameter(Mandatory=$false)]$Description = $Alertname
  
  )
 
  Function Add-MetricAlert ($alertresname)
 {
 
-    Add-AzMetricAlertRuleV2 -Name $alertresname -ResourceGroupName  $resourcegroup -WindowSize $WindowSize -Frequency $Frequency -TargetResourceId $res.ResourceId -Condition $criteria -ActionGroup $actionGroupId  -Severity $Severity
+    Add-AzMetricAlertRuleV2 -Name $alertresname -ResourceGroupName  $resourcegroup -WindowSize $WindowSize -Frequency $Frequency -TargetResourceId $res.ResourceId -Condition $criteria -ActionGroup $actionGroupId  -Severity $Severity -Description $Description
 
 }
 #Set Alert Criteria
