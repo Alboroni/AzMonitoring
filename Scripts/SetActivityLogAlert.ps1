@@ -6,7 +6,9 @@ param (
 [Parameter(Mandatory)] $Alertname, 
 [Parameter(Mandatory)]  $actiongroups_id,
 [Parameter(Mandatory=$false)]$Category = 'Administrative',
-[Parameter(Mandatory)]$operationName 
+[Parameter(Mandatory)]$operationName.
+[Parameter(Mandatory=$false)]$status = 'Succeeded'
+
 
 
  )
@@ -15,7 +17,7 @@ param (
  Function New-ActivityAlert ($altname)
  {
 
-    Set-AzActivityLogAlert -Location 'Global'  -Name $altname -ResourceGroupName  $resourcegroup -Scope $scope -Action $actionGroupId -Condition $condition1, $condition2
+    Set-AzActivityLogAlert -Location 'Global'  -Name $altname -ResourceGroupName  $resourcegroup -Scope $scope -Action $actionGroupId -Condition $condition1, $condition2, $condition3
 
 
 
@@ -24,6 +26,7 @@ param (
 
 $condition1 = New-AzActivityLogAlertCondition -Field 'category' -Equal $Category
 $condition2 = New-AzActivityLogAlertCondition -Field 'operationName' -Equal $operationName
+$condition3 = New-AzActivityLogAlertCondition -Field 'status' -Equal $status
 
 $actionGroupId = New-AzActionGroup -ActionGroupId $actiongroups_id
 
