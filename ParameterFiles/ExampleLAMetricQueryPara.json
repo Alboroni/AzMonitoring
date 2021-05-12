@@ -5,10 +5,7 @@
       "alertName": {
         "value": "TestLAMetricAlert"
       },
-      "actionGroupShortName": {
-        "value": "InfraOps"
-      },
-      "resourcename": {
+       "resourcename": {
         "value": "TestLA"
       },
       "query": {
@@ -20,11 +17,7 @@
       "aggregatedby": {
         "value": "Computer"
       }
-
-
-
-
-  
+     
       
   }
   
