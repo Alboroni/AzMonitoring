@@ -151,3 +151,17 @@ steps:
       -Dim2Value Failed `
       -Alertname RunbookFail
     azurePowerShellVersion: 'LatestVersion'
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: $(serviceconnection)
+    subscriptionId: $(subscriptionId)
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: $(RGName)
+    location: 'UK South'
+    templateLocation: 'Linked artifact'
+    csmFile: 'Templates/laresultquery.json'
+    csmParametersFile: 'ParameterFiles/ExampleLAMetricQueryPara.json'
+    overrideParameters: '-actiongroups_id $(actiongrp_arm.actionGroupId.value)'
+    deploymentName: "LAQueryDep"
+    deploymentMode: 'Incremental'
