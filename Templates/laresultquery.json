@@ -158,7 +158,7 @@
                 "description": "how often the metric alert is evaluated represented in ISO 8601 duration format"
             }
         },
-        "muteActionsDuration": {
+        "mutecsDuration": {
             "type": "string",
             "defaultValue": "PT1H",
             "allowedValues": [
