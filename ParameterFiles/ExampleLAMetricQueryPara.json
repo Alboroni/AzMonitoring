@@ -1,0 +1,31 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+      "alertName": {
+        "value": "TestLAMetricAlert"
+      },
+      "actionGroupShortName": {
+        "value": "InfraOps"
+      },
+      "resourcename": {
+        "value": "TestLA"
+      },
+      "query": {
+        "value": "// Reported errors\nunion Event, Syslog // Event table stores Windows event records, Syslog stores Linux records\n| where EventLevelName == \"Error\" // EventLevelName is used in the Event (Windows) records\nor SeverityLevel== \"err\" // SeverityLevel is used in Syslog (Linux) records\n| summarize AggregatedValue = count() by Computer, bin(TimeGenerated, 15m)"
+      },
+      "metricMeasureColumn": {
+        "value": "AggregatedValue"
+      },
+      "aggregatedby": {
+        "value": "Computer"
+      }
+
+
+
+
+  
+      
+  }
+  
+  }

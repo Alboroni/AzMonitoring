@@ -11,15 +11,15 @@
         },
         "location": {
             "type": "string",
+            "defaultValue": "westEurope",
             "minLength": 1,
-            "defaultValue": "uksouth",
             "metadata": {
                 "description": "Location of the alert"
             }
         },
         "alertDescription": {
             "type": "string",
-            "defaultValue": "This is a LA Query alert",
+            "defaultValue": "This is a metric alert",
             "metadata": {
                 "description": "Description of alert"
             }
@@ -45,18 +45,18 @@
                 "description": "Specifies whether the alert is enabled"
             }
         },
-        "resourcename": {
+        "resourceId": {
             "type": "string",
             "minLength": 1,
             "metadata": {
-                "description": "Log Analytics workspace resource name. "
+                "description": "Full Resource ID of the resource emitting the metric that will be used for the comparison. For example /subscriptions/00000000-0000-0000-0000-0000-00000000/resourceGroups/ResourceGroupName/providers/Microsoft.compute/virtualMachines/VM_xyz"
             }
         },
         "query": {
             "type": "string",
             "minLength": 1,
             "metadata": {
-                "description": "Query to return LA result"
+                "description": "Name of the metric used in the comparison to activate the alert."
             }
         },
         "metricMeasureColumn": {
@@ -70,12 +70,6 @@
             "metadata": {
                 "description": "Name of the resource ID column used in the alert targeting the alerts."
             }
-        },
-            "aggregatedby": {
-                "type": "string",
-                "metadata": {
-                    "description": "Name of the column we are aggregating by  ."
-                }
         },
         "operator": {
             "type": "string",
@@ -146,7 +140,7 @@
         },
         "evaluationFrequency": {
             "type": "string",
-            "defaultValue": "PT5M",
+            "defaultValue": "PT1M",
             "allowedValues": [
                 "PT1M",
                 "PT5M",
@@ -160,7 +154,7 @@
         },
         "muteActionsDuration": {
             "type": "string",
-            "defaultValue": "PT1H",
+            "defaultValue": "PT5M",
             "allowedValues": [
                 "PT1M",
                 "PT5M",
@@ -191,29 +185,26 @@
             "location": "[parameters('location')]",
             "apiVersion": "2020-05-01-preview",
             "tags": {},
-            "dependsOn": ["[resourceId('microsoft.operationalinsights/workspaces', parameters('resourcename'))]"],
             "properties": {
                 "description": "[parameters('alertDescription')]",
                 "severity": "[parameters('alertSeverity')]",
                 "enabled": "[parameters('isEnabled')]",
-                "scopes": "[resourceId('microsoft.operationalinsights/workspaces', parameters('resourcename'))]",
+                "scopes": ["[parameters('resourceId')]"],
                 "evaluationFrequency":"[parameters('evaluationFrequency')]",
                 "windowSize": "[parameters('windowSize')]",
                 "criteria": {
                     "allOf": [
                         {
                             "query": "[parameters('query')]",
-                            "metricMeasureColumn": "[parameters('metricMeasureColumn')]",
+                            "metricMeasureColumn": "AggregatedValue",
                             "resourceIdColumn": "[parameters('resourceIdColumn')]",
-                            "dimensions":[
-                                {
-                                    "name": "[parameters('aggregatedby')]",
-                                    "operator": "Include",
-                                    "values": [
-                                        "*"
-                                    ]
-                                }
-                            ],
+                            "dimensions":[{
+                                "name": "[parameters('metricMeasureColumn')]",,
+                                "operator": "Include",
+                                "values": [
+                                    "*"
+                                ]
+                            }],
                             "operator": "[parameters('operator')]",
                             "threshold" : "[parameters('threshold')]",
                             "timeAggregation": "[parameters('timeAggregation')]",
