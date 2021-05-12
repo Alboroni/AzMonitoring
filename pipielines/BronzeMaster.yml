@@ -117,20 +117,6 @@ steps:
       -Alertname DataAvailLoadBalancer `
       -Description "The Data path Availabiilty of the Load Balancer is below currrent Threshold" 
     azurePowerShellVersion: 'LatestVersion'
-
-- task: AzurePowerShell@5
-  inputs:
-    azureSubscription: $(serviceconnection)
-    ScriptType: 'FilePath'
-    ScriptPath: 'Scripts/SetActivityLogAlert.ps1'
-    ScriptArguments: 
-      -subscriptionId $(subscriptionId) `
-      -resourcegroup $(RGname) `
-      -actiongroups_id $(actiongrp_arm.actionGroupId.value) `
-      -operationName Microsoft.Network/routeTables/routes/write `
-      -targetresourcegroup $(targetRTResourceGroup) `
-      -Alertname AAroutetableupdate
-    azurePowerShellVersion: 'LatestVersion'
 - task: AzurePowerShell@5
   inputs:
     azureSubscription: $(serviceconnection)
