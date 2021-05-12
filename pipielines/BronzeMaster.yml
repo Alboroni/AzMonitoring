@@ -148,6 +148,6 @@ steps:
     templateLocation: 'Linked artifact'
     csmFile: 'Templates/laresultquery.json'
     csmParametersFile: 'ParameterFiles/ExampleLAMetricQueryPara.json'
-    overrideParameters: '-actiongroups_id $(actiongrp_arm.actionGroupId.value)'
+    overrideParameters: '-actionGroupId $(actiongrp_arm.actionGroupId.value)'
     deploymentName: "LAQueryDep"
     deploymentMode: 'Incremental'
