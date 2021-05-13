@@ -193,8 +193,7 @@
             "location": "[parameters('location')]",
             "apiVersion": "2020-05-01-preview",
             "tags": {},
-            "dependsOn": ["[parameters('resourceId')]"],
-            "properties": {
+                 "properties": {
                 "description": "[parameters('alertDescription')]",
                 "severity": "[parameters('alertSeverity')]",
                 "enabled": "[parameters('isEnabled')]",
