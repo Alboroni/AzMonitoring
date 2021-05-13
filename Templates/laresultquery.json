@@ -65,12 +65,7 @@
                 "description": "Name of the measure column used in the alert evaluation."
             }
         },
-        "resourceIdColumn": {
-            "type": "string",
-            "metadata": {
-                "description": "Name of the resource ID column used in the alert targeting the alerts."
-            }
-        },
+   
             "aggregatedby": {
                 "type": "string",
                 "metadata": {
@@ -204,7 +199,6 @@
                         {
                             "query": "[parameters('query')]",
                             "metricMeasureColumn": "[parameters('metricMeasureColumn')]",
-                            "resourceIdColumn": "[parameters('resourceIdColumn')]",
                             "dimensions":[
                                 {
                                     "name": "[parameters('aggregatedby')]",
