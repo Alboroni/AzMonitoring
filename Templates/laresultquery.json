@@ -52,6 +52,13 @@
                 "description": "Log Analytics workspace resource name. "
             }
         },
+        "resourcId": {
+            "type": "string",
+            "minLength": 1,
+            "metadata": {
+                "description": "Log Analytics workspace resource Id. "
+            }
+        },
         "query": {
             "type": "string",
             "minLength": 1,
