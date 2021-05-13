@@ -177,6 +177,22 @@
                 "description": "Mute actions for the chosen period of time (in ISO 8601 duration format) after the alert is fired."
             }
         },
+        "muteActionsDuration": {
+            "type": "string",
+            "defaultValue": "PT1H",
+            "allowedValues": [
+               
+                "PT30M",
+                "PT1H",
+                "PT4H",
+                "PT6H",
+                "PT12H",
+                "PT24H"
+            ],
+            "metadata": {
+                "description": "Period of time used to supress alerts."
+            }
+        },
         "actionGroupId": {
             "type": "string",
             "defaultValue": "",
