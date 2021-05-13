@@ -8,6 +8,11 @@
        "resourcename": {
         "value": "TestLA"
       },
+      "resourceId": {
+        "value": "/subscriptions/db99463c-2a00-433c-a39b-f63083b719a4/resourcegroups/testla/providers/microsoft.operationalinsights/workspaces/testla"
+      },
+
+
       "query": {
         "value": "// Reported errors\nunion Event, Syslog // Event table stores Windows event records, Syslog stores Linux records\n| where EventLevelName == \"Error\" // EventLevelName is used in the Event (Windows) records\nor SeverityLevel== \"err\" // SeverityLevel is used in Syslog (Linux) records\n| summarize AggregatedValue = count() by Computer, bin(TimeGenerated, 15m)"
       },

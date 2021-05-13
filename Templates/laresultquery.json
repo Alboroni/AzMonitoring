@@ -186,12 +186,12 @@
             "location": "[parameters('location')]",
             "apiVersion": "2020-05-01-preview",
             "tags": {},
-            "dependsOn": ["[resourceId('microsoft.operationalinsights/workspaces', parameters('resourcename'))]"],
+            "dependsOn": ["[parameters('resourceId')]"],
             "properties": {
                 "description": "[parameters('alertDescription')]",
                 "severity": "[parameters('alertSeverity')]",
                 "enabled": "[parameters('isEnabled')]",
-                "scopes": "[resourceId('microsoft.operationalinsights/workspaces', parameters('resourcename'))]",
+                "scopes": ["[parameters('resourceId')]"],
                 "evaluationFrequency":"[parameters('evaluationFrequency')]",
                 "windowSize": "[parameters('windowSize')]",
                 "criteria": {
