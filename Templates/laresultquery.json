@@ -52,7 +52,7 @@
                 "description": "Log Analytics workspace resource name. "
             }
         },
-        "resourcId": {
+        "resourceId": {
             "type": "string",
             "minLength": 1,
             "metadata": {
