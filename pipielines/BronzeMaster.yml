@@ -182,7 +182,7 @@ steps:
     resourceGroupName: $(RGName)
     location: 'UK South'
     templateLocation: 'Linked artifact'
-    csmFile: 'Templates/Alert-Bronze-workbook.json'
+    csmFile: 'Templates/Alert-Bronze-Workbook.json'
     csmParametersFile: 'ParameterFiles/Bonzeworkbookpara.json'
     deploymentName: "WorkbookDep"
     deploymentMode: 'Incremental'
