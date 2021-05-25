@@ -12,6 +12,10 @@ param (
 [Parameter(Mandatory=$false)]$Frequency = '00:05:00' ,
 [Parameter(Mandatory=$false)]$Threshold= '0' ,
 [Parameter(Mandatory=$false)]$Severity = '2' ,
+[Parameter(Mandatory=$false)]$Dynamic = $false ,
+[Parameter(Mandatory=$false)]$ThresholdSensitivity= 'Medium',
+[Parameter(Mandatory=$false)]$ViolationCount = 2 ,
+[Parameter(Mandatory=$false)]$ExaminedAggregatedPointCount = 4,
 [Parameter(Mandatory=$false)]$Description = $Alertname
  
  )
@@ -23,8 +27,15 @@ param (
 
 }
 #Set Alert Criteria
+if($Dynamic -eq $true)
+{
 
+    New-AzMetricAlertRuleV2Criteria -Dynamic -MetricName $metricname  -MetricNameSpace $resourcetype -TimeAggregation $Aggregation -Operator $Operator -ThresholdSensitivity $ThresholdSensitivity -ViolationCount $ViolationCount -ExaminedAggregatedPointCount $ExaminedAggregatedPointCount
+ 
+}
+else{
 $criteria = New-AzMetricAlertRuleV2Criteria -MetricName $metricname  -TimeAggregation $aggregation  -Operator $operator -Threshold $Threshold
+}
 
 Write-Host $resourcetype
 

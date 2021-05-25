@@ -114,9 +114,31 @@ steps:
       -metricname dipAvailability `
       -Threshold 90 `
       -Operator LessThan `
+      -DYNAMIC = $true
+      -Alertname DataAvailLoadBalancerdYNAMIC `
+      -Description "The Data path Availabiilty of the Load Balancer is below currrent Threshold" 
+    azurePowerShellVersion: 'LatestVersion'
+
+    
+- task: AzurePowerShell@5
+  inputs:
+    azureSubscription: $(serviceconnection)
+    ScriptType: 'FilePath'
+    ScriptPath: 'Scripts/SetMetricAlert.ps1'
+    ScriptArguments: 
+      -subscriptionId $(subscriptionId) `
+      -resourcegroup $(RGname) `
+      -ResourceType microsoft.network/loadbalancers `
+      -actiongroups_id $(actiongrp_arm.actionGroupId.value) `
+      -metricname dipAvailability `
+      -Threshold 90 `
+      -Operator LessThan `
       -Alertname DataAvailLoadBalancer `
       -Description "The Data path Availabiilty of the Load Balancer is below currrent Threshold" 
     azurePowerShellVersion: 'LatestVersion'
+
+
+
 - task: AzurePowerShell@5
   inputs:
     azureSubscription: $(serviceconnection)
