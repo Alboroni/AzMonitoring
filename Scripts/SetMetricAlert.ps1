@@ -2,7 +2,7 @@ param (
 [Parameter(Mandatory)]$subscriptionId,
 [Parameter(Mandatory)]$resourcegroup,
 [Parameter(Mandatory)]$resourcetype,
-[Parameter(Mandatory=$false)]$targetresourcegroup,
+[Parameter(Mandatory=$false)]$targetresourcegroup = 'notargetted' ,
 [Parameter(Mandatory)]$metricname,
 [Parameter(Mandatory)]$Alertname, 
 [Parameter(Mandatory)]$actiongroups_id,
@@ -41,7 +41,7 @@ Write-Host $resourcetype
 
 Select-AzSubscription -Subscription $subscriptionId
 
-if($targetresourcegroup)
+if($targetresourcegroup -ne 'notargetted')
 
 {
     $resourceIDs = Get-AzResource -ResourceType $resourcetype -ResourceGroupName $targetresourcegroup
