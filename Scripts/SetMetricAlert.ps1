@@ -30,8 +30,10 @@ param (
 if($Dynamic -eq $true)
 {
 
-    New-AzMetricAlertRuleV2Criteria -Dynamic -MetricName $metricname  -MetricNameSpace $resourcetype -TimeAggregation $Aggregation -Operator $Operator -ThresholdSensitivity $ThresholdSensitivity -ViolationCount $ViolationCount -ExaminedAggregatedPointCount $ExaminedAggregatedPointCount
- 
+    $criteria =   New-AzMetricAlertRuleV2Criteria -Dynamic -MetricName $metricname  -MetricNameSpace $resourcetype -TimeAggregation $aggregation -Operator $Operator -ThresholdSensitivity $ThresholdSensitivity -ViolationCount $ViolationCount -ExaminedAggregatedPointCount $ExaminedAggregatedPointCount
+Write-Host "Setting Dynamic alert"
+
+
 }
 else{
 $criteria = New-AzMetricAlertRuleV2Criteria -MetricName $metricname  -TimeAggregation $aggregation  -Operator $operator -Threshold $Threshold
