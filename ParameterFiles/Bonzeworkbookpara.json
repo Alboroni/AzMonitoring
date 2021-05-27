@@ -3,10 +3,10 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
       "workbookDisplayName": {
-        "value": "BronzeWorkbookTest"
+        "value": "BronzeWorkbookTestRGDeploy"
       },
       "workbookSourceId": {
-        "value": "Azure Monitor"
+        "value": "[resourceGroup().id]"
       }
   
       
