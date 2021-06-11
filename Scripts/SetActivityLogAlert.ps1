@@ -50,7 +50,9 @@ $outItems.add($newscope)
 
 $stringout = $outItems|%{[string]$_}
 
-$scope= $stringout -join "','"
+$prescope= $stringout -join "','"
+
+$scope = "'" + $prescope + "'"
 
 Write-host  "$scope" + Scope
 
