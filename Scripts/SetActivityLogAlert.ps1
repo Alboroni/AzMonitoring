@@ -3,8 +3,8 @@ param (
 [Parameter(Mandatory)]$resourcegroup,
 [Parameter(Mandatory=$false)] $resourcetype,
 [Parameter(Mandatory=$false)]$targetresourcegroup,
-[Parameter(Mandatory)] $Alertname, 
-[Parameter(Mandatory)]  $actiongroups_id,
+[Parameter(Mandatory)]$Alertname, 
+[Parameter(Mandatory)] $actiongroups_id,
 [Parameter(Mandatory=$false)]$Category = 'Administrative',
 [Parameter(Mandatory)]$operationName ,
 [Parameter(Mandatory=$false)]$status = 'Succeeded'
