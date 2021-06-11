@@ -6,7 +6,7 @@ param (
 [Parameter(Mandatory)] $Alertname, 
 [Parameter(Mandatory)]  $actiongroups_id,
 [Parameter(Mandatory=$false)]$Category = 'Administrative',
-[Parameter(Mandatory)]$operationName.
+[Parameter(Mandatory)]$operationName ,
 [Parameter(Mandatory=$false)]$status = 'Succeeded'
 
 
@@ -38,10 +38,23 @@ $sub = Get-AzSubscription -SubscriptionId $subscriptionId
 #determine the scope for alerts
 if ($targetresourcegroup)
 {
-   
+   $outItems = New-Object System.Collections.Generic.List[System.Object]
+  $resarray=  $targetresourcegroup.split(",")
+
+  foreach ($res in $resarray){
  #uses format  /subscriptions/00000000-0000-0000-0000-0000-00000000/resourceGroups/ResourceGroupName" 
-$scope = "/subscriptions/$sub/ResourceGroups/$targetresourcegroup" 
-$altname =$alertname + '-' + $targetresourcegroup
+$newscope = "/subscriptions/$sub/ResourceGroups/$res" ;
+$outItems.add($newscope)
+
+}
+
+$stringout = $outItems|%{[string]$_}
+
+$scope= $stringout -join ","
+
+Write-host  "$scope" + Scope
+
+$altname =$alertname + '-' + $sub.Name
 
 }
  
