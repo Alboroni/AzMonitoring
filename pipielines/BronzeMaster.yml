@@ -86,6 +86,23 @@ steps:
     deploymentMode: 'Incremental'
 
 - task: AzurePowerShell@5
+  condition: eq(variables.routetable, true)
+  inputs:
+    azureSubscription: $(serviceconnection)
+    ScriptType: 'FilePath'
+    ScriptPath: 'Scripts/SetActivityLogAlert.ps1'
+    ScriptArguments: 
+      -subscriptionId $(subscriptionId) `
+      -resourcegroup $(RGname) `
+      -actiongroups_id $(actiongrp_arm.actionGroupId.value) `
+      -operationName Microsoft.Network/routeTables/routes/write `
+      -targetresourcegroup $(targetRTrg) `
+      -Alertname Bronze-AAroutetableupdate
+    azurePowerShellVersion: 'LatestVersion'
+  continueOnError: true
+
+
+- task: AzurePowerShell@5
   inputs:
     azureSubscription: $(serviceconnection)
     ScriptType: 'FilePath'
