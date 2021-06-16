@@ -15,11 +15,14 @@
             }
         },
         "ResourceTypes": {
-            "type": "string",
+            "type": "object",
             "metadata": {
                 "description": "Resource Id for the Action group."
             },
-            "defaultValue":  "[{"field": "resourceType","equals": "MICROSOFT.COMPUTE/VIRTUALMACHINES","containsAny": null }]"
+            "defaultValue": {
+                "field": "resourceType",
+                "equals": "MICROSOFT.COMPUTE/VIRTUALMACHINES",
+                "containsAny": null }
                 
         }
 
@@ -45,8 +48,14 @@
                             "containsAny": null
                         },
                         {
-                            "anyof":   "[json(parameters('ResourceTypes'))]"
-                                               },
+                            "anyof":   [
+                                "[json(parameters('ResourceTypes'))"
+
+
+
+                            ]
+                            
+                        },
                         {
                             "anyOf": [
                                 {
