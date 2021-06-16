@@ -35,9 +35,12 @@
                             "containsAny": null
                         },
                         {
-                            "field": "resourceType",
-                            "notequals": "MICROSOFT.COMPUTE/VIRTUALMACHINES",
+                            "anyof": [
+                            {"field": "resourceType",
+                            "equals": "MICROSOFT.COMPUTE/VIRTUALMACHINES",
                             "containsAny": null
+                            }
+                        ]
                         },
                         {
                             "anyOf": [
