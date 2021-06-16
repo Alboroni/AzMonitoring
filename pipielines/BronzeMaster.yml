@@ -50,7 +50,7 @@ steps:
    resourceGroupName: $(RGname)
    location: 'UK South'
    templateLocation: 'Linked artifact'
-   csmFile: 'Templates/ResourceHealthTemplate.json'
+   csmFile: 'Templates/ResHealthRT.json'
    deploymentMode: 'Incremental'
    deploymentName: 'RHMonDeploy'
    overrideParameters: -actionGroupResourceId $(actiongrp_arm.actionGroupId.value) -activityLogAlertName 'Resource Health Critical Alerts'
