@@ -13,7 +13,21 @@
             "metadata": {
                 "description": "Resource Id for the Action group."
             }
+        },
+        "ResourceTypes": {
+            "type": "object",
+            "metadata": {
+                "description": "Resource Id for the Action group."
+            },
+            "defaultValue":  
+            {"field": "resourceType",
+                "equals": "MICROSOFT.COMPUTE/VIRTUALMACHINES",
+                "containsAny": null
+                }
+                
         }
+
+
     },
     "resources": [
         {
@@ -36,10 +50,7 @@
                         },
                         {
                             "anyof": [
-                            {"field": "resourceType",
-                            "equals": "MICROSOFT.COMPUTE/VIRTUALMACHINES",
-                            "containsAny": null
-                            }
+                           "[parameters('ResourceTypes']"
                         ]
                         },
                         {
