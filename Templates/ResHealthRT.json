@@ -49,7 +49,7 @@
                         },
                         {
                             "anyof":   [
-                                "[json(parameters('ResourceTypes'))"
+                                "[json(parameters('ResourceTypes'))]"
 
 
 
