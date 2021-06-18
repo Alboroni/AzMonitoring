@@ -14,10 +14,10 @@ param (
  )
 
 
- Function New-ActivityAlert ($altname)
+ Function New-ActivityAlert ($altname, $scope)
  {
 
-    Set-AzActivityLogAlert -Location 'Global'  -Name $altname -ResourceGroupName  $resourcegroup -Scope '/subscriptions/db99463c-2a00-433c-a39b-f63083b719a4/ResourceGroups/shareservices','/subscriptions/db99463c-2a00-433c-a39b-f63083b719a4/ResourceGroups/azmonitoringnew'  -Action $actionGroupId -Condition $condition1, $condition2, $condition3
+    Set-AzActivityLogAlert -Location 'Global'  -Name $altname -ResourceGroupName  $resourcegroup -Scope $scope  -Action $actionGroupId -Condition $condition1, $condition2, $condition3
 
 
 
@@ -52,7 +52,7 @@ $stringout = $outItems|%{[string]$_}
 
 $prescope= $stringout -join "','"
 
-$scope = "'" + $prescope + "'"
+$scope = "'" + $prescope.ToString() + "'"
 
 Write-host  "$scope" + Scope
 
@@ -68,4 +68,4 @@ $altname = $alertname + '-' + $sub.Name
 }
 
 
-New-ActivityAlert $altname
+New-ActivityAlert $altname $scope
