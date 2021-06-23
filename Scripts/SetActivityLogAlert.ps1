@@ -19,8 +19,12 @@ param (
  write-host "setting Alert $altname in $resourcegroup on $scope " 
  write-host "the conditions are $category  and $operationNAme and $status "
 
+$s = '/subscriptions/db99463c-2a00-433c-a39b-f63083b719a4/ResourceGroups/azmonitoringnew' 
+$type1 = $s.GetType().Name 
+write-host "Tpe os $type1"
 
-   Set-AzActivityLogAlert -Location 'Global'  -Name $altname -ResourceGroupName  $resourcegroup -Scope $scope.tostring() -Action $actionGroupId -Condition $condition1, $condition2, $condition3
+
+   Set-AzActivityLogAlert -Location 'Global'  -Name $altname -ResourceGroupName  $resourcegroup -Scope $s -Action $actionGroupId -Condition $condition1, $condition2, $condition3
     #Set-AzActivityLogAlert -Location 'Global'  -Name $altname -ResourceGroupName  $resourcegroup -Scope '/subscriptions/db99463c-2a00-433c-a39b-f63083b719a4/ResourceGroups/azmonitoringnew' -Action $actionGroupId -Condition $condition1, $condition2, $condition3
 
 
@@ -57,8 +61,9 @@ $stringout = $outItems|%{[string]$_}
 $prescope= $stringout -join "','"
 
 $scope = "'" + $prescope.ToString() + "'"
+$type = $scope.GetType().Name 
 
-Write-host  "$scope.GetTYpe()" + ScopeType
+Write-host  "$type" + ScopeType
 
 $altname =$alertname + '-' + $sub.Name
 
