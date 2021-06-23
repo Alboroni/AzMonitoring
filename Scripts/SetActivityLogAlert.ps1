@@ -60,9 +60,9 @@ $outItems.add($newscope)
 
 $stringout = $outItems|%{[string]$_}
 
-$prescope= $stringout -join "','"
+$prescope= $stringout -join "",""
 
-$scope = "'" + $prescope + "'"
+$scope = """ + $prescope + """
 $type = $scope.GetType().Name 
 
 Write-host  "$type" + ScopeType
