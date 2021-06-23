@@ -17,6 +17,8 @@ param (
  Function New-ActivityAlert ($altname, $scope)
  {
  write-host "setting Alert $altname in $resourcegroup on $scope " 
+ write-host "the conditions are $category  and $operationNAme and $status "
+
 
     Set-AzActivityLogAlert -Location 'Global'  -Name $altname -ResourceGroupName  $resourcegroup -Scope $scope -Action $actionGroupId -Condition $condition1, $condition2, $condition3
 
