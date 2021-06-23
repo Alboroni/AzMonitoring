@@ -86,7 +86,7 @@ steps:
     deploymentMode: 'Incremental'
 
 - task: AzurePowerShell@5
-  condition: and(eq(variables.routetable, true),contains(variables.targetRTrg,'*'))
+  condition: and(eq(variables.routetable, true),contains(variables.targetRTrg,'az'))
   inputs:
     azureSubscription: $(serviceconnection)
     ScriptType: 'FilePath'
