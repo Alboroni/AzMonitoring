@@ -60,7 +60,7 @@ $outItems.add($newscope)
 
 $stringout = $outItems|%{[string]$_}
 
-$prescope= $stringout -join ","
+$prescope= $stringout -join " , "
 
 $scope =  $prescope 
 $type = $scope.GetType().Name 
