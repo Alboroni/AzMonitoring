@@ -86,7 +86,7 @@ steps:
     deploymentMode: 'Incremental'
 
 - task: AzurePowerShell@5
-  condition: eq(variables.routetable, true)
+  condition: and(eq(variables.routetable, true),contains(variables.targetRTrg,'*'))
   inputs:
     azureSubscription: $(serviceconnection)
     ScriptType: 'FilePath'
@@ -97,6 +97,21 @@ steps:
       -actiongroups_id $(actiongrp_arm.actionGroupId.value) `
       -operationName Microsoft.Network/routeTables/routes/write `
       -targetresourcegroup $(targetRTrg) `
+      -Alertname Bronze-AAroutetableupdate
+    azurePowerShellVersion: 'LatestVersion'
+  continueOnError: true
+
+- task: AzurePowerShell@5
+  condition: and(eq(variables.routetable, true),eq(variables.targetRTrg,''))
+  inputs:
+    azureSubscription: $(serviceconnection)
+    ScriptType: 'FilePath'
+    ScriptPath: 'Scripts/SetActivityLogAlert.ps1'
+    ScriptArguments: 
+      -subscriptionId $(subscriptionId) `
+      -resourcegroup $(RGname) `
+      -actiongroups_id $(actiongrp_arm.actionGroupId.value) `
+      -operationName Microsoft.Network/routeTables/routes/write `
       -Alertname Bronze-AAroutetableupdate
     azurePowerShellVersion: 'LatestVersion'
   continueOnError: true
