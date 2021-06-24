@@ -52,19 +52,19 @@ if ($targetresourcegroup)
    
    [string]$newstring
 
-   #$outItems = New-Object System.Collections.Generic.List[System.Object]
-  ##$resarray=  $targetresourcegroup.split(",")
+   $outItems = New-Object System.Collections.Generic.List[System.String]
+  $resarray=  $targetresourcegroup.split(",")
 
-  #foreach ($res in $resarray){
+  foreach ($res in $resarray){
  #uses format  /subscriptions/00000000-0000-0000-0000-0000-00000000/resourceGroups/ResourceGroupName" 
-##$newscope = "/subscriptions/$sub/ResourceGroups/$res"
-#$outItems.add($newscope)
+$newscope = "/subscriptions/$sub/ResourceGroups/$res"
+$outItems.add($newscope)
 ##if ($newstring)
 ##{$newstring = $newstring + " , " + "'" + $newscope + "'"}
 
 ##else {$newstring =  "'" + $newscope + "'"}
 
-#}
+}
 
 #$stringout = $outItems|%{[string]$_}
 
@@ -72,6 +72,7 @@ if ($targetresourcegroup)
 
 #$scope =  $prescope 
 #$scope = $newstring
+$scope = $outItems
 #$type = $scope.GetType().Name 
 
 Write-host  "$type" + ScopeType
