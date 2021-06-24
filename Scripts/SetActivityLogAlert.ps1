@@ -61,25 +61,16 @@ if ($targetresourcegroup)
  #uses format  /subscriptions/00000000-0000-0000-0000-0000-00000000/resourceGroups/ResourceGroupName" 
 $newscope = "/subscriptions/$sub/ResourceGroups/$res"
 $outItems.add($newscope)
-##if ($newstring)
-##{$newstring = $newstring + " , " + "'" + $newscope + "'"}
 
-##else {$newstring =  "'" + $newscope + "'"}
 
 }
 
-#$stringout = $outItems|%{[string]$_}
 
-#$prescope= $stringout -join " , "
-
-#$scope =  $prescope 
-#$scope = $newstring
 $scope = $outItems
-#$type = $scope.GetType().Name 
 
 Write-host  "$type" + ScopeType
 Write-Host "NEW String is $targetresgroup"
-#$scope = $targetresourcegroup
+
 $altname =$alertname + '-' + $sub.Name + 'RGScope'
 
 }
