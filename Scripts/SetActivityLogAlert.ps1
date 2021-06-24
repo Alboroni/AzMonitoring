@@ -26,7 +26,7 @@ write-host "Tpe os $type1"
 
 
 
-   Set-AzActivityLogAlert -Location 'Global'  -Name $altname -ResourceGroupName  $resourcegroup -Scope $scope -Action $actionGroupId -Condition $condition1, $condition2, $condition3
+   Set-AzActivityLogAlert -Location 'Global'  -Name $altname -ResourceGroupName  $resourcegroup -Scope $targetresourcegroup -Action $actionGroupId -Condition $condition1, $condition2, $condition3
    # Set-AzActivityLogAlert -Location 'Global'  -Name $altname -ResourceGroupName  $resourcegroup -Scope '/subscriptions/db99463c-2a00-433c-a39b-f63083b719a4/ResourceGroups/azmonitoringnew' , '/subscriptions/db99463c-2a00-433c-a39b-f63083b719a4/ResourceGroups/demodelete' -Action $actionGroupId -Condition $condition1, $condition2, $condition3
 
 
@@ -55,7 +55,7 @@ if ($targetresourcegroup)
 
   foreach ($res in $resarray){
  #uses format  /subscriptions/00000000-0000-0000-0000-0000-00000000/resourceGroups/ResourceGroupName" 
-$newscope = /subscriptions/$sub/ResourceGroups/$res
+$newscope = "/subscriptions/$sub/ResourceGroups/$res"
 #$outItems.add($newscope)
 if ($newstring)
 {$newstring = $newstring + " , " + "'" + $newscope + "'"}
