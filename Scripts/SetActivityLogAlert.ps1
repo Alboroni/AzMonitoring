@@ -13,6 +13,8 @@ param (
 
  )
 
+ $scope = New-Object System.Collections.Generic.List[System.String]
+
 
  Function New-ActivityAlert ($altname, $scope)
  {
@@ -77,14 +79,14 @@ $scope = $outItems
 
 Write-host  "$type" + ScopeType
 Write-Host "NEW String is $targetresgroup"
-$scope = $targetresourcegroup
+#$scope = $targetresourcegroup
 $altname =$alertname + '-' + $sub.Name + 'RGScope'
 
 }
  
 else
 {
-$scope = "/subscriptions/$sub"
+$scope.add("/subscriptions/$sub")
 $altname = $alertname + '-' + $sub.Name
 
 }
