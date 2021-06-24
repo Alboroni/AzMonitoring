@@ -19,7 +19,7 @@ param (
  write-host "setting Alert $altname in $resourcegroup on $scope end " 
  write-host "the conditions are $category  and $operationNAme and $status "
 
-$s = '/subscriptions/db99463c-2a00-433c-a39b-f63083b719a4/ResourceGroups/azmonitoringnew' 
+#$s = '/subscriptions/db99463c-2a00-433c-a39b-f63083b719a4/ResourceGroups/azmonitoringnew' 
 $type1 = $scope.GetType().Name 
 write-host "Tpe os $type1"
 
@@ -48,17 +48,19 @@ $sub = Get-AzSubscription -SubscriptionId $subscriptionId
 #determine the scope for alerts
 if ($targetresourcegroup)
 {
-   $outItems = New-Object System.Collections.Generic.List[System.Object]
+   [string]$newstring
+
+   #$outItems = New-Object System.Collections.Generic.List[System.Object]
   $resarray=  $targetresourcegroup.split(",")
 
   foreach ($res in $resarray){
  #uses format  /subscriptions/00000000-0000-0000-0000-0000-00000000/resourceGroups/ResourceGroupName" 
-$newscope = "/subscriptions/$sub/ResourceGroups/$res" ;
-$outItems.add($newscope)
-if ($newststring)
-{$newststring = $newststring + " , " + $newscope}
+$newscope = "/subscriptions/$sub/ResourceGroups/$res" 
+#$outItems.add($newscope)
+if ($newstring)
+{$newstring = $newstring + " , " + $newscope}
 
-else {$newststring = $newscope}
+else {$newstring = $newscope}
 
 }
 
