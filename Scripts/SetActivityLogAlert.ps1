@@ -55,7 +55,7 @@ if ($targetresourcegroup)
 
   foreach ($res in $resarray){
  #uses format  /subscriptions/00000000-0000-0000-0000-0000-00000000/resourceGroups/ResourceGroupName" 
-$newscope = "/subscriptions/$sub/ResourceGroups/$res" 
+$newscope = /subscriptions/$sub/ResourceGroups/$res
 #$outItems.add($newscope)
 if ($newstring)
 {$newstring = $newstring + " , " + "'" + $newscope + "'"}
