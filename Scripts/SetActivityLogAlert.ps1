@@ -16,7 +16,7 @@ param (
 
  Function New-ActivityAlert ($altname, $scope)
  {
- write-host "setting Alert $altname in $resourcegroup on $scope end " 
+ write-host "setting Alert $altname in $resourcegroup on $scope" 
  write-host "the conditions are $category  and $operationNAme and $status "
 
 #$s = '/subscriptions/db99463c-2a00-433c-a39b-f63083b719a4/ResourceGroups/azmonitoringnew' 
@@ -26,7 +26,7 @@ write-host "Tpe os $type1"
 
 
 
-   Set-AzActivityLogAlert -Location 'Global'  -Name $altname -ResourceGroupName  $resourcegroup -Scope $targetresourcegroup -Action $actionGroupId -Condition $condition1, $condition2, $condition3
+   Set-AzActivityLogAlert -Location 'Global'  -Name $altname -ResourceGroupName  $resourcegroup -Scope $scope -Action $actionGroupId -Condition $condition1, $condition2, $condition3
    # Set-AzActivityLogAlert -Location 'Global'  -Name $altname -ResourceGroupName  $resourcegroup -Scope '/subscriptions/db99463c-2a00-433c-a39b-f63083b719a4/ResourceGroups/azmonitoringnew' , '/subscriptions/db99463c-2a00-433c-a39b-f63083b719a4/ResourceGroups/demodelete' -Action $actionGroupId -Condition $condition1, $condition2, $condition3
 
 
@@ -48,34 +48,36 @@ $sub = Get-AzSubscription -SubscriptionId $subscriptionId
 #determine the scope for alerts
 if ($targetresourcegroup)
 {
+   
+   
    [string]$newstring
 
    #$outItems = New-Object System.Collections.Generic.List[System.Object]
-  $resarray=  $targetresourcegroup.split(",")
+  ##$resarray=  $targetresourcegroup.split(",")
 
-  foreach ($res in $resarray){
+  #foreach ($res in $resarray){
  #uses format  /subscriptions/00000000-0000-0000-0000-0000-00000000/resourceGroups/ResourceGroupName" 
-$newscope = "/subscriptions/$sub/ResourceGroups/$res"
+##$newscope = "/subscriptions/$sub/ResourceGroups/$res"
 #$outItems.add($newscope)
-if ($newstring)
-{$newstring = $newstring + " , " + "'" + $newscope + "'"}
+##if ($newstring)
+##{$newstring = $newstring + " , " + "'" + $newscope + "'"}
 
-else {$newstring =  "'" + $newscope + "'"}
+##else {$newstring =  "'" + $newscope + "'"}
 
-}
+#}
 
 #$stringout = $outItems|%{[string]$_}
 
 #$prescope= $stringout -join " , "
 
 #$scope =  $prescope 
-$scope = $newstring
-$type = $scope.GetType().Name 
+#$scope = $newstring
+#$type = $scope.GetType().Name 
 
 Write-host  "$type" + ScopeType
-Write-Host "NEW String is $newstring"
-
-$altname =$alertname + '-' + $sub.Name
+Write-Host "NEW String is $targetresgroup"
+$scope = $targetresourcegroup
+$altname =$alertname + '-' + $sub.Name + 'RGScope'
 
 }
  
