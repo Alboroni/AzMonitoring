@@ -58,7 +58,7 @@ if ($targetresourcegroup)
 $newscope = "/subscriptions/$sub/ResourceGroups/$res" 
 #$outItems.add($newscope)
 if ($newstring)
-{$newstring = $newstring + " , " + $newscope + "'"}
+{$newstring = $newstring + " , " + "'" + $newscope + "'"}
 
 else {$newstring =  "'" + $newscope + "'"}
 
