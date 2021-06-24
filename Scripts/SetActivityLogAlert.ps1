@@ -18,19 +18,12 @@ param (
 
  Function New-ActivityAlert ($altname, $scope)
  {
- write-host "setting Alert $altname in $resourcegroup on $scope" 
+
+ write-host "setting Alert $altname in $resourcegroup" 
  write-host "the conditions are $category  and $operationNAme and $status "
 
-#$s = '/subscriptions/db99463c-2a00-433c-a39b-f63083b719a4/ResourceGroups/azmonitoringnew' 
-$type1 = $scope.GetType().Name 
-write-host "Tpe os $type1"
 
-
-
-
-   Set-AzActivityLogAlert -Location 'Global'  -Name $altname -ResourceGroupName  $resourcegroup -Scope $scope -Action $actionGroupId -Condition $condition1, $condition2, $condition3
-   # Set-AzActivityLogAlert -Location 'Global'  -Name $altname -ResourceGroupName  $resourcegroup -Scope '/subscriptions/db99463c-2a00-433c-a39b-f63083b719a4/ResourceGroups/azmonitoringnew' , '/subscriptions/db99463c-2a00-433c-a39b-f63083b719a4/ResourceGroups/demodelete' -Action $actionGroupId -Condition $condition1, $condition2, $condition3
-
+   Set-AzActivityLogAlert -Location 'Global'  -Name $altname -ResourceGroupName  $resourcegroup -Scope $scope -Action $actionGroupId -Condition $condition1, $condition2, $condition3 -Description "$altname has fired. Please check the Azure Activity log associated with the resource for further details" 
 
 
  }
@@ -52,12 +45,10 @@ if ($targetresourcegroup)
 {
    
    
-   [string]$newstring
-
-   $outItems = New-Object System.Collections.Generic.List[System.String]
+  $outItems = New-Object System.Collections.Generic.List[System.String]
   $resarray=  $targetresourcegroup.split(",")
 
-  foreach ($res in $resarray){
+foreach ($res in $resarray){
  #uses format  /subscriptions/00000000-0000-0000-0000-0000-00000000/resourceGroups/ResourceGroupName" 
 $newscope = "/subscriptions/$sub/ResourceGroups/$res"
 $outItems.add($newscope)
@@ -67,10 +58,6 @@ $outItems.add($newscope)
 
 
 $scope = $outItems
-
-Write-host  "$type" + ScopeType
-Write-Host "NEW String is $targetresgroup"
-
 $altname =$alertname + '-' + $sub.Name + 'RGScope'
 
 }
