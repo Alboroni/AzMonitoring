@@ -5,6 +5,11 @@
         "dataCollectionRules_name": {
             "defaultValue": "StdWindowsDCR",
             "type": "String"
+        },
+        "location":{
+             "defaultValue": "westeurope",
+             "type": "String"
+
         }
     },
     "variables": {},
@@ -12,6 +17,7 @@
         {
             "type": "Microsoft.Insights/dataCollectionRules",
             "apiVersion": "2021-04-01",
+            "location": "[parameters('location')]",
             "name": "[parameters('dataCollectionRules_name')]",
             "kind": "Windows",
             "properties": {

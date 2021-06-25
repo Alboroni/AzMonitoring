@@ -218,6 +218,7 @@ steps:
     csmFile: 'Templates/DataCollectionRuleWindows.json'
     deploymentName: "LAQueryDep"
     deploymentMode: 'Incremental'
+    deploymentOutputs: DCR_Windows_Arm
 
 
 
