@@ -191,6 +191,7 @@ steps:
       -Dim2Value Failed `
       -Alertname RunbookFail
     azurePowerShellVersion: 'LatestVersion'
+
 - task: AzureResourceManagerTemplateDeployment@3
   inputs:
     deploymentScope: 'Resource Group'
@@ -219,6 +220,32 @@ steps:
     deploymentName: "LAQueryDep"
     deploymentMode: 'Incremental'
     deploymentOutputs: DCR_Windows_Arm
+
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: $(serviceconnection)
+    subscriptionId: $(subscriptionId)
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: $(RGName)
+    location: 'UK South'
+    templateLocation: 'Linked artifact'
+    csmFile: 'Templates/DataCollectionRuleLinux.json'
+    deploymentName: "LAQueryDep"
+    deploymentMode: 'Incremental'
+    deploymentOutputs: DCR_Linux_Arm
+
+- task: AzurePowerShell@5
+  inputs:
+    azureSubscription: $(serviceconnection)
+    ScriptType: 'FilePath'
+    ScriptPath: 'Scripts/CreateDCRAssociation.ps1'
+    ScriptArguments: 
+      -subscriptionId $(subscriptionId) `
+      -resourcegroup $(RGname) `
+      -DCRLinux_ID $(DCR_Linux_Arm.DCRLinux_Id.value) `
+      -DCRWindows_ID $(DCR_Windows_Arm.DCRWindows_Id.value) 
+    azurePowerShellVersion: 'LatestVersion'
 
 
 

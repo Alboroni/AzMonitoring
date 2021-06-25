@@ -1,0 +1,108 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "Linux_Perf_Collection_name": {
+            "defaultValue": "Linux_Perf_Collection",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Insights/dataCollectionRules",
+            "apiVersion": "2021-04-01",
+            "name": "[parameters('Linux_Perf_Collection_name')]",
+            "location": "uksouth",
+            "kind": "Linux",
+            "properties": {
+                "dataSources": {
+                    "performanceCounters": [
+                        {
+                            "streams": [
+                                "Microsoft-InsightsMetrics"
+                            ],
+                            "samplingFrequencyInSeconds": 10,
+                            "counterSpecifiers": [
+                                "Processor(*)\\% Processor Time",
+                                "Processor(*)\\% Idle Time",
+                                "Processor(*)\\% User Time",
+                                "Processor(*)\\% Nice Time",
+                                "Processor(*)\\% Privileged Time",
+                                "Processor(*)\\% IO Wait Time",
+                                "Processor(*)\\% Interrupt Time",
+                                "Processor(*)\\% DPC Time",
+                                "System(*)\\Processes",
+                                "System(*)\\Users",
+                                "Memory(*)\\Available MBytes Memory",
+                                "Memory(*)\\% Available Memory",
+                                "Memory(*)\\Used Memory MBytes",
+                                "Memory(*)\\% Used Memory",
+                                "Memory(*)\\Pages/sec",
+                                "Memory(*)\\Page Reads/sec",
+                                "Memory(*)\\Page Writes/sec",
+                                "Memory(*)\\Available MBytes Swap",
+                                "Memory(*)\\% Available Swap Space",
+                                "Memory(*)\\Used MBytes Swap Space",
+                                "Memory(*)\\% Used Swap Space",
+                                "Process(*)\\Pct User Time",
+                                "Process(*)\\Pct Privileged Time",
+                                "Process(*)\\Used Memory",
+                                "Process(*)\\Virtual Shared Memory",
+                                "System(*)\\Free Virtual Memory",
+                                "System(*)\\Free Physical Memory",
+                                "Logical Disk(*)\\% Free Inodes",
+                                "Logical Disk(*)\\% Used Inodes",
+                                "Logical Disk(*)\\Free Megabytes",
+                                "Logical Disk(*)\\% Free Space",
+                                "Logical Disk(*)\\% Used Space",
+                                "Logical Disk(*)\\Logical Disk Bytes/sec",
+                                "Logical Disk(*)\\Disk Read Bytes/sec",
+                                "Logical Disk(*)\\Disk Write Bytes/sec",
+                                "Logical Disk(*)\\Disk Transfers/sec",
+                                "Logical Disk(*)\\Disk Reads/sec",
+                                "Logical Disk(*)\\Disk Writes/sec",
+                                "Physical Disk(*)\\Physical Disk Bytes/sec",
+                                "Physical Disk(*)\\Avg. Disk sec/Transfer",
+                                "Physical Disk(*)\\Avg. Disk sec/Read",
+                                "Physical Disk(*)\\Avg. Disk sec/Write",
+                                "System(*)\\Size Stored In Paging Files",
+                                "System(*)\\Free Space in Paging Files",
+                                "Network(*)\\Total Bytes Transmitted",
+                                "Network(*)\\Total Bytes Received",
+                                "Network(*)\\Total Bytes",
+                                "Network(*)\\Total Packets Transmitted",
+                                "Network(*)\\Total Packets Received",
+                                "Network(*)\\Total Rx Errors",
+                                "Network(*)\\Total Tx Errors",
+                                "Network(*)\\Total Collisions"
+                            ],
+                            "name": "perfCounterDataSource10"
+                        }
+                    ]
+                },
+                "destinations": {
+                    "azureMonitorMetrics": {
+                        "name": "azureMonitorMetrics-default"
+                    }
+                },
+                "dataFlows": [
+                    {
+                        "streams": [
+                            "Microsoft-InsightsMetrics"
+                        ],
+                        "destinations": [
+                            "azureMonitorMetrics-default"
+                        ]
+                    }
+                ]
+            }
+        }
+    ],
+    "outputs":{
+        "DCRLinux_Id":{
+            "type":"string",
+            "value":"[resourceId('Microsoft.Insights/dataCollectionRules',parameters('Linux_Perf_Collection_name'))]"
+        }
+    }
+}

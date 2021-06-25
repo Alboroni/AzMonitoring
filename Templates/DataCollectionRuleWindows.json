@@ -106,5 +106,11 @@
                 ]
             }
         }
-    ]
+    ],
+    "outputs":{
+        "DCRWindows_Id":{
+            "type":"string",
+            "value":"[resourceId('Microsoft.Insights/dataCollectionRules',parameters('dataCollectionRules_name'))]"
+        }
+    }
 }
