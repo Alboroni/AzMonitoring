@@ -7,16 +7,18 @@ param (
 [Parameter(Mandatory=$false)] $linux
 
 
-
  )
+
+Write-Host "here we go" 
 
  if ($targetRG)
 {
-$vmsdcr = get-azVM -ResourceGroupName $TargrtRG
+
+$vmsdcr = get-azVM -ResourceGroupName $TargetRG
 }
 
 else {
-
+Write-HOst "Getting VMs"
 $vmsdcr = Get-azVM
 
 }
@@ -25,7 +27,7 @@ $vmsdcr = Get-azVM
 
 foreach ($vmdcr in $vmsdcr)
 {
-
+ 
  If ($vmdcr.OsType -eq 'Windows')   
 { 
 
