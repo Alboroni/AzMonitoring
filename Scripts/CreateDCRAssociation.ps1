@@ -27,18 +27,23 @@ $vmsdcr = Get-azVM
 
 foreach ($vmdcr in $vmsdcr)
 {
- 
- If ($vmdcr.OsType -eq 'Windows')   
+ Write-host "$vmdcr.Name "
+$OSType = $vmdcr.StorageProfile.OsDisk.OsType
+
+ #New-AzDataCollectionRuleAssociation -TargetResourceId $vmdcr.Id -AssociationName "dcrwlinuxAssoc" -RuleId $DCRLinux_ID
+
+
+ If ($OsType -eq 'Windows')   
 { 
 
     Write-Host "Creating Association Host $vmdcr.Name "
 New-AzDataCollectionRuleAssociation -TargetResourceId $vmdcr.Id -AssociationName "dcrwindowsAssoc" -RuleId $DCRWindows_ID
 }
 
-if ($vmdcr.OsType -eq 'Linux')  {
+if ($OsType -eq 'Linux')  {
 
-    Write-Host "Creating Association Host $vmdcr.Name "
-    New-AzDataCollectionRuleAssociation -TargetResourceId $vmdcr.Id -AssociationName "dcrwlinuxAssoc" -RuleId $DCRLinux_ID
+    Write-Host "Creating Association Host $vmd -TargetResourceId $vmdcr.Id -AssociationName "dcrwlinuxAssoc" -RuleId $DCRLinux_ID"
+    New-AzDataCollectionRuleAssociation -TargetResourceId $vmdcr.Id -AssociationName "dcrwlinuxAssoc" -RuleId $DCRLinux_ID 
 
 }
 
