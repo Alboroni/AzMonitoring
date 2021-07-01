@@ -37,9 +37,10 @@ $OSType = $vmdcr.StorageProfile.OsDisk.OsType
 { 
 
     Write-Host "Creating Association Host $vmdcr.Name "
-    
-   $VMExt=  Get-AzVMExtension -ResourceGroupName $vmdcr.ResourceGroupName -VMName $vmdcr.Name -Name "AzureMonitorWindowsAgent"
-
+    try
+   {$VMExt=  Get-AzVMExtension -ResourceGroupName $vmdcr.ResourceGroupName -VMName $vmdcr.Name -Name "AzureMonitorWindowsAgent"
+   }
+   Catch {Write-host "error "}
  if (!$VMExt)   
 
 {Set-AzVMExtension -Name AMAWindows -ExtensionType AzureMonitorWindowsAgent -Publisher Microsoft.Azure.Monitor -ResourceGroupName $vmdcr.ResourceGroupName -VMName $vmdcr.Name> -Location $vmdcr.Location -TypeHandlerVersion 1.0
@@ -48,9 +49,10 @@ New-AzDataCollectionRuleAssociation -TargetResourceId $vmdcr.Id -AssociationName
 }
 
 if ($OsType -eq 'Linux')  {
-
+ try {
     $VMExt=  Get-AzVMExtension -ResourceGroupName $vmdcr.ResourceGroupName -VMName $vmdcr.Name -Name "AzureMonitorLinuxAgent"
-
+ }
+ catch {"error has occurred"}
     if (!$VMExt)   
    
    {Set-AzVMExtension -Name AMALinux -ExtensionType AzureMonitorLinuxAgent -Publisher Microsoft.Azure.Monitor -ResourceGroupName $vmdcr.ResourceGroupName -VMName $vmdcr.Name> -Location $vmdcr.Location -TypeHandlerVersion 1.0
