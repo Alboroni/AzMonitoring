@@ -31,7 +31,7 @@ foreach ($vmdcr in $vmsdcr)
 {
 
     $VMExt = $null 
-    
+
  Write-host "$vmdcr.Name "
 $OSType = $vmdcr.StorageProfile.OsDisk.OsType
 
@@ -50,7 +50,7 @@ $OSType = $vmdcr.StorageProfile.OsDisk.OsType
 
 {
     write-host "setting extension"
-    Set-AzVMExtension -Name AMAWindows -ExtensionType AzureMonitorWindowsAgent -Publisher Microsoft.Azure.Monitor -ResourceGroupName $vmdcr.ResourceGroupName -VMName $vmdcr.Name> -Location $vmdcr.Location -TypeHandlerVersion 1.0
+    Set-AzVMExtension -Name AMAWindows -ExtensionType AzureMonitorWindowsAgent -Publisher Microsoft.Azure.Monitor -ResourceGroupName $vmdcr.ResourceGroupName -VMName $vmdcr.Name -Location $vmdcr.Location -TypeHandlerVersion 1.0
 }
 New-AzDataCollectionRuleAssociation -TargetResourceId $vmdcr.Id -AssociationName "dcrwindowsAssoc" -RuleId $DCRWindows_ID
 }
