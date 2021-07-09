@@ -22,7 +22,7 @@
                             "streams": [
                                 "Microsoft-InsightsMetrics"
                             ],
-                            "samplingFrequencyInSeconds": 10,
+                            "samplingFrequencyInSeconds": 30,
                             "counterSpecifiers": [
                                 "Processor(*)\\% Processor Time",
                                 "Processor(*)\\% Idle Time",
