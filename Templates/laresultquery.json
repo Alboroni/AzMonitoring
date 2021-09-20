@@ -19,7 +19,7 @@
         },
         "alertDescription": {
             "type": "string",
-            "defaultValue": "This is a LA Query alert",
+            "defaultValue": "Bronze-LA Query Alert",
             "metadata": {
                 "description": "Description of alert"
             }
