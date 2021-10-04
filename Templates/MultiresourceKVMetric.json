@@ -2,12 +2,12 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "metricAlerts_Key_Vault_description": {
-            "defaultValue": "Key Vault Metric Alert has passed its threshold",
+        "metricAlerts_description": {
+            "defaultValue": "Multi Resource Metric Alert has passed its threshold",
             "type": "securestring"
         },
-        "metricAlerts_Key_Vault_Name": {
-            "defaultValue": "Key Vault Availability has been reduced(pipe)",
+        "metricAlerts_Name": {
+            "defaultValue": "ExampleMultiResAlert",
             "type": "string"
         },
         "TargetScope":{"defaultValue":   [
@@ -15,9 +15,16 @@
         ],
             
         "type": "array"},
+
+
         "actiongroups_id": {
                         "type": "string"
         },
+
+        "targetResourceType": {
+            "defaultValue": "Microsoft.KeyVault/vaults",
+            "type": "string"
+},
         "Metric_Name":{
             "defaultValue" :"Availability",
             "type": "string"
@@ -87,7 +94,7 @@
         {
             "type": "Microsoft.Insights/metricAlerts",
             "apiVersion": "2018-03-01",
-            "name": "[parameters('metricAlerts_Key_Vault_Name')]",
+            "name": "[parameters('metricAlerts_Name')]",
             "location": "global",
             "properties": {
                 "severity": "[parameters('alertSeverity')]",
@@ -100,7 +107,7 @@
                         {
                             "threshold":  "[parameters('Threshold_Value')]",
                             "name": "Metric1",
-                            "metricNamespace": "Microsoft.KeyVault/vaults",
+                            "metricNamespace":"[parameters('targetResourceType')]",
                             "metricName": "[parameters('Metric_Name')]",
                             "location": "global",
                             "dimensions": [],
@@ -112,7 +119,7 @@
                     "odata.type": "Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria"
                 },
                 "autoMitigate": true,
-                "targetResourceType": "microsoft.keyvault/vaults",
+                "targetResourceType": "[parameters('targetResourceType')]",
                 "targetResourceRegion": "uksouth",
                 "actions": [
                     {
@@ -120,7 +127,7 @@
                         "webHookProperties": {}
                     }
                 ],
-                "description": "[parameters('metricAlerts_Key_Vault_description')]"
+                "description": "[parameters('metricAlerts_description')]"
             }
         }
 
