@@ -216,7 +216,7 @@ steps:
     resourceGroupName: $(RGName)
     location: 'UK South'
     templateLocation: 'Linked artifact'
-    csmFile: 'Templates/laresultquery.json'
+    csmFile: 'Templates/LogMetricAlert.json'
     csmParametersFile: 'ParameterFiles/LAMetricParam.json'
     overrideParameters: '-actionGroupId $(actiongrp_arm.actionGroupId.value)'
     deploymentName: "LAQueryDep"
