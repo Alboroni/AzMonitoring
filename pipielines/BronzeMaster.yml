@@ -207,7 +207,7 @@ steps:
     deploymentName: "LAQueryDep"
     deploymentMode: 'Incremental'
 
-    - task: AzureResourceManagerTemplateDeployment@3
+- task: AzureResourceManagerTemplateDeployment@3
   inputs:
     deploymentScope: 'Resource Group'
     azureResourceManagerConnection: $(serviceconnection)
