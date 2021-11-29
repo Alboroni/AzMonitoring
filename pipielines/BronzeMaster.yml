@@ -53,7 +53,7 @@ steps:
    csmFile: 'Templates/ResourceHealthTemplate.json'
    deploymentMode: 'Incremental'
    deploymentName: 'RHMonDeploy'
-   overrideParameters: -actionGroupResourceId $(actiongrp_arm.actionGroupId.value) -activityLogAlertName 'Resource Health Critical Alerts RTscope'
+   overrideParameters: -actionGroupResourceId $(actiongroup) -activityLogAlertName 'Resource Health Critical Alerts RTscope'
 
 - task: AzureResourceManagerTemplateDeployment@3
   condition: eq(variables.keyvault, true)
@@ -66,7 +66,7 @@ steps:
     location: 'UK South'
     templateLocation: 'Linked artifact'
     csmFile: 'Templates/MultiresourceKVMetric.json'
-    overrideParameters: '-actiongroups_id $(actiongrp_arm.actionGroupId.value)'
+    overrideParameters: '-actiongroups_id $(actiongroup)'
     deploymentName: "KVmetric"
     deploymentMode: 'Incremental'
 
