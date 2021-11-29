@@ -201,21 +201,6 @@ steps:
     resourceGroupName: $(RGName)
     location: 'UK South'
     templateLocation: 'Linked artifact'
-    csmFile: 'Templates/laresultquery.json'
-    csmParametersFile: 'ParameterFiles/ExampleLAMetricQueryPara.json'
-    overrideParameters: '-actionGroupId $(actiongroup)'
-    deploymentName: "LAQueryDep"
-    deploymentMode: 'Incremental'
-
-- task: AzureResourceManagerTemplateDeployment@3
-  inputs:
-    deploymentScope: 'Resource Group'
-    azureResourceManagerConnection: $(serviceconnection)
-    subscriptionId: $(subscriptionId)
-    action: 'Create Or Update Resource Group'
-    resourceGroupName: $(RGName)
-    location: 'UK South'
-    templateLocation: 'Linked artifact'
     csmFile: 'Templates/LogMetricAlert.json'
     csmParametersFile: 'ParameterFiles/LAMetricParam.json'
     overrideParameters: '-actionGroupId $(actiongroup)'
