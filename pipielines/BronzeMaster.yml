@@ -82,7 +82,7 @@ steps:
     templateLocation: 'Linked artifact'
     csmFile: 'Templates/MultiresourceKVMetric.json'
     csmParametersFile: 'ParameterFiles/KVSaturationMetric.json'
-    overrideParameters: '-actiongroups_id $(actiongrp_arm.actionGroupId.value)'
+    overrideParameters: '-actiongroups_id $(actiongroup)'
     deploymentMode: 'Incremental'
 
 - task: AzurePowerShell@5
@@ -94,7 +94,7 @@ steps:
     ScriptArguments: 
       -subscriptionId $(subscriptionId) `
       -resourcegroup $(RGname) `
-      -actiongroups_id $(actiongrp_arm.actionGroupId.value) `
+      -actiongroups_id $(actiongroup) `
       -operationName Microsoft.Network/routeTables/routes/write `
       -targetresourcegroup $(targetRTrg) `
       -Alertname Bronze-AAroutetableupdate
@@ -126,7 +126,7 @@ steps:
       -subscriptionId $(subscriptionId) `
       -resourcegroup $(RGname) `
       -ResourceType microsoft.network/loadbalancers `
-      -actiongroups_id $(actiongrp_arm.actionGroupId.value) `
+      -actiongroups_id $(actiongroup) `
       -metricname VipAvailability `
       -Threshold 90 `
       -Operator LessThan `
@@ -142,7 +142,7 @@ steps:
       -subscriptionId $(subscriptionId) `
       -resourcegroup $(RGname) `
       -ResourceType microsoft.network/loadbalancers `
-      -actiongroups_id $(actiongrp_arm.actionGroupId.value) `
+      -actiongroups_id $(actiongroup) `
       -metricname dipAvailability `
       -Threshold 90 `
       -Operator LessThan `
@@ -181,7 +181,7 @@ steps:
       -resourcegroup $(RGname) `
       -ResourceType microsoft.automation/automationaccounts `
       -resourcename $(automationaccount) ` 
-      -actiongroups_id $(actiongrp_arm.actionGroupId.value) `
+      -actiongroups_id $(actiongroup) `
       -metricname TotalJob `
       -Threshold 0 `
       -Operator GreaterThan `
@@ -203,7 +203,7 @@ steps:
     templateLocation: 'Linked artifact'
     csmFile: 'Templates/laresultquery.json'
     csmParametersFile: 'ParameterFiles/ExampleLAMetricQueryPara.json'
-    overrideParameters: '-actionGroupId $(actiongrp_arm.actionGroupId.value)'
+    overrideParameters: '-actionGroupId $(actiongroup)'
     deploymentName: "LAQueryDep"
     deploymentMode: 'Incremental'
 
@@ -218,7 +218,7 @@ steps:
     templateLocation: 'Linked artifact'
     csmFile: 'Templates/LogMetricAlert.json'
     csmParametersFile: 'ParameterFiles/LAMetricParam.json'
-    overrideParameters: '-actionGroupId $(actiongrp_arm.actionGroupId.value)'
+    overrideParameters: '-actionGroupId $(actiongroup)'
     deploymentName: "LAQueryDep"
     deploymentMode: 'Incremental'
 
