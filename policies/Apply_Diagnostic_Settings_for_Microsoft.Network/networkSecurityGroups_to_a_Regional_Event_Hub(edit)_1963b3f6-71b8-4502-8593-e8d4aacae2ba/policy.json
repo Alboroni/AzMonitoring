@@ -1,0 +1,188 @@
+{
+ "properties": {
+  "displayName": "Apply Diagnostic Settings for Microsoft.Network/networkSecurityGroups to a Regional Event Hub(edit)",
+  "policyType": "Custom",
+  "mode": "Indexed",
+  "description": "This policy automatically deploys diagnostic settings to Apply Diagnostic Settings for Microsoft.Network/networkSecurityGroups to a Regional Event Hub.",
+  "metadata": {
+   "category": "Monitoring",
+   "createdBy": "922f3618-29eb-402a-b3d5-152a3f2c1099",
+   "createdOn": "2022-05-03T14:40:05.9383482Z",
+   "updatedBy": null,
+   "updatedOn": null
+  },
+  "parameters": {
+   "profileName": {
+    "type": "String",
+    "metadata": {
+     "displayName": "Profile Name for Config",
+     "description": "The profile name Azure Diagnostics"
+    }
+   },
+   "eventHubRuleId": {
+    "type": "String",
+    "metadata": {
+     "displayName": "EventHubRuleID",
+     "description": "The event hub RuleID for Azure Diagnostics",
+     "strongType": "Microsoft.EventHub/Namespaces/AuthorizationRules",
+     "assignPermissions": true
+    }
+   },
+   "azureRegions": {
+    "type": "Array",
+    "metadata": {
+     "displayName": "Allowed Locations",
+     "description": "The list of locations that can be specified when deploying resources",
+     "strongType": "location"
+    }
+   },
+   "metricsEnabled": {
+    "type": "String",
+    "metadata": {
+     "displayName": "Enable Metrics",
+     "description": "Enable Metrics - True or False"
+    },
+    "allowedValues": [
+     "True",
+     "False"
+    ],
+    "defaultValue": "False"
+   },
+   "logsEnabled": {
+    "type": "String",
+    "metadata": {
+     "displayName": "Enable Logs",
+     "description": "Enable Logs - True or False"
+    },
+    "allowedValues": [
+     "True",
+     "False"
+    ],
+    "defaultValue": "True"
+   }
+  },
+  "policyRule": {
+   "if": {
+    "allOf": [
+     {
+      "field": "type",
+      "equals": "Microsoft.Network/networkSecurityGroups"
+     },
+     {
+      "field": "location",
+      "in": "[parameters('azureRegions')]"
+     }
+    ]
+   },
+   "then": {
+    "effect": "deployIfNotExists",
+    "details": {
+     "type": "Microsoft.Insights/diagnosticSettings",
+     "existenceCondition": {
+      "allOf": [
+       {
+        "field": "Microsoft.Insights/diagnosticSettings/logs.enabled",
+        "equals": "[parameters('logsEnabled')]"
+       },
+       {
+        "field": "Microsoft.Insights/diagnosticSettings/metrics.enabled",
+        "equals": "[parameters('metricsEnabled')]"
+       },
+       {
+        "field": "Microsoft.Insights/diagnosticSettings/eventHubAuthorizationRuleId",
+        "equals": "[parameters('eventHubRuleId')]"
+       }
+      ]
+     },
+     "roleDefinitionIds": [
+      "/providers/Microsoft.Authorization/roleDefinitions/b24988ac-6180-42a0-ab88-20f7382dd24c"
+     ],
+     "deployment": {
+      "properties": {
+       "mode": "incremental",
+       "template": {
+        "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+        "contentVersion": "1.0.0.0",
+        "parameters": {
+         "name": {
+          "type": "string"
+         },
+         "location": {
+          "type": "string"
+         },
+         "eventHubName": {
+          "type": "string"
+         },
+         "eventHubRuleId": {
+          "type": "string"
+         },
+         "metricsEnabled": {
+          "type": "string"
+         },
+         "logsEnabled": {
+          "type": "string"
+         },
+         "profileName": {
+          "type": "string"
+         }
+        },
+        "variables": {},
+        "resources": [
+         {
+          "type": "Microsoft.Network/networkSecurityGroups/providers/diagnosticSettings",
+          "apiVersion": "2017-05-01-preview",
+          "name": "[concat(parameters('name'), '/', 'Microsoft.Insights/', parameters('profileName'))]",
+          "location": "[parameters('location')]",
+          "dependsOn": [],
+          "properties": {
+           "eventHubAuthorizationRuleId": "[parameters('eventHubRuleId')]",
+           "logs": [
+            {
+             "category": "NetworkSecurityGroupEvent",
+             "enabled": "[parameters('logsEnabled')]"
+            },
+            {
+             "category": "NetworkSecurityGroupRuleCounter",
+             "enabled": "[parameters('logsEnabled')]"
+            }
+           ]
+          }
+         }
+        ],
+        "outputs": {
+         "policy": {
+          "type": "string",
+          "value": "[concat(parameters('eventHubName'), 'configured for diagnostic logs for ', ': ', parameters('name'))]"
+         }
+        }
+       },
+       "parameters": {
+        "location": {
+         "value": "[field('location')]"
+        },
+        "name": {
+         "value": "[field('name')]"
+        },
+        "eventHubRuleId": {
+         "value": "[parameters('eventHubRuleId')]"
+        },
+        "metricsEnabled": {
+         "value": "[parameters('metricsEnabled')]"
+        },
+        "logsEnabled": {
+         "value": "[parameters('logsEnabled')]"
+        },
+        "profileName": {
+         "value": "[parameters('profileName')]"
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ },
+ "id": "/subscriptions/db99463c-2a00-433c-a39b-f63083b719a4/providers/Microsoft.Authorization/policyDefinitions/1963b3f6-71b8-4502-8593-e8d4aacae2ba",
+ "type": "Microsoft.Authorization/policyDefinitions",
+ "name": "1963b3f6-71b8-4502-8593-e8d4aacae2ba"
+}
